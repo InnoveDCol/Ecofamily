@@ -1,12 +1,12 @@
 package com.innovedcol.ecofamily.entities;
 
-public class Empresa {
+public class Enterprise {
     private String nombre;
     private String direccion;
     private String telefono;
     private String nit;
 
-    public Empresa(String nombre, String direccion, String telefono, String nit) {
+    public Enterprise(String nombre, String direccion, String telefono, String nit) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -47,7 +47,7 @@ public class Empresa {
 
     @Override
     public String toString() {
-        return "Empresa{" +
+        return "Enterprise{" +
                 "nombre='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", telefono='" + telefono + '\'' +

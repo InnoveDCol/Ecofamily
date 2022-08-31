@@ -1,13 +1,13 @@
 package com.innovedcol.ecofamily.entities;
 
-public class MovimientoDinero {
+public class Transaction {
 
     private double monto;
     private String concepto;
     private String  tipoMovimiento;
-    private Empleado usuario;
+    private Employee usuario;
 
-    public MovimientoDinero(double monto, String concepto, String tipoMovimiento, Empleado usuario) {
+    public Transaction(double monto, String concepto, String tipoMovimiento, Employee usuario) {
         this.monto = monto;
         this.concepto = concepto;
         this.tipoMovimiento = tipoMovimiento;
@@ -38,17 +38,17 @@ public class MovimientoDinero {
         this.tipoMovimiento = tipoMovimiento;
     }
 
-    public Empleado getUsuario() {
+    public Employee getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Empleado usuario) {
+    public void setUsuario(Employee usuario) {
         this.usuario = usuario;
     }
 
     @Override
     public String toString() {
-        return "MovimientoDinero{" +
+        return "Transaction{" +
                 "monto=" + monto +
                 ", concepto='" + concepto + '\'' +
                 ", tipoMovimiento='" + tipoMovimiento + '\'' +

@@ -1,34 +1,34 @@
 package com.innovedcol.ecofamily;
 
-import com.innovedcol.ecofamily.entities.Empleado;
-import com.innovedcol.ecofamily.entities.Empresa;
-import com.innovedcol.ecofamily.entities.MovimientoDinero;
+import com.innovedcol.ecofamily.entities.Employee;
+import com.innovedcol.ecofamily.entities.Enterprise;
+import com.innovedcol.ecofamily.entities.Transaction;
 
 import java.util.Scanner;
 
 public class Main {
 
-    // Definicion de una Empresa principal
-    static Empresa empresaPpal  = new Empresa("Ecofamily","Cra 59C # 51 - 2","6666666","789654123");
-    // Definicion de un Empleado administrado
-    static Empleado empleadoAdmin = new Empleado("Juan Esteban", "juanesteban@ecofamily.com",empresaPpal,"Admin");
-    // Definicion de un Empleado operario
-    static Empleado empleadoOper = new Empleado("Andrea", "andrea@ecofamily.com",empresaPpal,"Operario");
+    // Definicion de una Enterprise principal
+    static Enterprise enterprisePpal = new Enterprise("Ecofamily","Cra 59C # 51 - 2","6666666","789654123");
+    // Definicion de un Employee administrado
+    static Employee employeeAdmin = new Employee("Juan Esteban", "juanesteban@ecofamily.com", enterprisePpal,"Admin");
+    // Definicion de un Employee operario
+    static Employee employeeOper = new Employee("Andrea", "andrea@ecofamily.com", enterprisePpal,"Operario");
 
-    public static void old_main(String[] args) {
+    public static void old_main() {
 
 
         // Definicion de variable para el Scanner
         Scanner sc = new Scanner(System.in);
-        int opcion = 4; // Variable que guardara las opciones del menu
+        int opcion; // Variable que guardara las opciones del menu
 
         do {
             System.out.println("\n========================================");
             System.out.println("\t--------- MENU TESTER --------- ");
             System.out.println("========================================");
-            System.out.println("1. Prueba clase Empresa");
-            System.out.println("2. Prueba clase Empleado");
-            System.out.println("3. Prueba clase MovimientoDinero");
+            System.out.println("1. Prueba clase Enterprise");
+            System.out.println("2. Prueba clase Employee");
+            System.out.println("3. Prueba clase Transaction");
             System.out.println("4. Salir");
             System.out.print("Seleccione una opcion para continuar: ");
             opcion = sc.nextInt();
@@ -53,16 +53,16 @@ public class Main {
     }
 
     private static void testerEmpresa() {
-        //Clase Empresa:
+        //Clase Enterprise:
         System.out.println("\n========================================");
         System.out.println("-- TEST DE LA CLASE EMPRESA --");
-        // Nueva instancia de clase Empresa: Se crea un objeto llamado Emp
-        Empresa Emp = new Empresa("Cafe", "Calle 98c #06-7", "3015900465", "1234");
+        // Nueva instancia de clase Enterprise: Se crea un objeto llamado Emp
+        Enterprise Emp = new Enterprise("Cafe", "Calle 98c #06-7", "3015900465", "1234");
 
         // Se imprimen los datos iniciales del objeto Emp
         System.out.println("----------------------------------------\n");
-        System.out.println("*** Llamado al metodo toString() de la clase Empresa con los datos iniciales");
-        System.out.println(Emp.toString());
+        System.out.println("*** Llamado al metodo toString() de la clase Enterprise con los datos iniciales");
+        System.out.println(Emp);
 
         // Prueba de los getters
         System.out.println("----------------------------------------\n");
@@ -92,21 +92,21 @@ public class Main {
         Emp.setNit("222999");
         System.out.println("Se cambió el NIT...");
         // Se imprimen los datos modificados del objeto Emp
-        System.out.println("\n*** Llamado al metodo toString() de la clase Empresa con los datos modificados");
-        System.out.println(Emp.toString());
+        System.out.println("\n*** Llamado al metodo toString() de la clase Enterprise con los datos modificados");
+        System.out.println(Emp);
     }
 
     private static void testerEmpleado() {
-        //Clase Empleado:
+        //Clase Employee:
         System.out.println("\n========================================");
         System.out.println("-- TEST DE LA CLASE EMPLEADO --");
-        // Nueva instancia de clase Empleado: Se crea un objeto llamado emp
-        Empleado emp = new Empleado("Mario", "XXXX@gmail.com", new Empresa("InnoveD Col","Cra 56 # 24-10","5555555","123456987"), "Almacenista");
+        // Nueva instancia de clase Employee: Se crea un objeto llamado emp
+        Employee emp = new Employee("Mario", "XXXX@gmail.com", new Enterprise("InnoveD Col","Cra 56 # 24-10","5555555","123456987"), "Almacenista");
 
         // Se imprimen los datos iniciales del objeto emp
         System.out.println("----------------------------------------\n");
-        System.out.println("*** Llamado al metodo toString() de la clase Empleado con los datos iniciales");
-        System.out.println(emp.toString());
+        System.out.println("*** Llamado al metodo toString() de la clase Employee con los datos iniciales");
+        System.out.println(emp);
 
         // Prueba de los getters
         System.out.println("----------------------------------------\n");
@@ -116,7 +116,7 @@ public class Main {
         // Lectura del correo
         System.out.println("Correo del empleado: " + emp.getCorreo());
         // Lectura de la empresa contratante
-        System.out.println("Empresa contratante: " + emp.getEmpresaContratante().getNombre());
+        System.out.println("Enterprise contratante: " + emp.getEmpresaContratante().getNombre());
         // Lectura del rol
         System.out.println("Rol del empleado: " + emp.getRol());
 
@@ -130,28 +130,28 @@ public class Main {
         emp.setCorreo("cccc@gmail.com");
         System.out.println("Se cambió el correo...");
         // Modificacion de la empresa contratante
-        emp.setEmpresaContratante(empresaPpal);
+        emp.setEmpresaContratante(enterprisePpal);
         System.out.println("Se cambió la empresa contratante...");
         // Modificacion del rol
         emp.setRol("Contador");
         System.out.println("Se cambió el rol...");
         // Se imprimen los datos modificados del objeto emp
-        System.out.println("\n*** Llamado al metodo toString() de la clase Empleado con los datos modificados");
-        System.out.println(emp.toString());
+        System.out.println("\n*** Llamado al metodo toString() de la clase Employee con los datos modificados");
+        System.out.println(emp);
     }
 
     private static void testerMovimientoDinero() {
 
-        //Clase MovimientoDinero:
+        //Clase Transaction:
         System.out.println("\n========================================");
         System.out.println("-- TEST DE LA CLASE MOVIMIENTODINERO --");
-        // Nueva instancia de clase  MovimientoDinero: Se crea un objeto llamado mov
-        MovimientoDinero mov = new MovimientoDinero(20000, "Consignacion inicial", "consignacion",empleadoAdmin);
+        // Nueva instancia de clase  Transaction: Se crea un objeto llamado mov
+        Transaction mov = new Transaction(20000, "Consignacion inicial", "consignacion", employeeAdmin);
 
         // Se imprimen los datos iniciales del objeto mov
         System.out.println("----------------------------------------\n");
-        System.out.println("*** Llamado al metodo toString() de la clase MovimientoDinero con los datos iniciales");
-        System.out.println(mov.toString());
+        System.out.println("*** Llamado al metodo toString() de la clase Transaction con los datos iniciales");
+        System.out.println(mov);
 
         // Prueba de los getters
         System.out.println("----------------------------------------\n");
@@ -178,11 +178,11 @@ public class Main {
         mov.setTipoMovimiento("retiro");
         System.out.println("Se cambió el tipo de movimiento...");
         // Modificacion del usuario que realiza el movimiento
-        mov.setUsuario(empleadoOper);
+        mov.setUsuario(employeeOper);
         System.out.println("Se cambió el usuario que realiza el movimiento...");
         // Se imprimen los datos modificados del objeto mov
-        System.out.println("\n*** Llamado al metodo toString() de la clase MovimientoDinero con los datos modificados");
-        System.out.println(mov.toString() + "\n");
+        System.out.println("\n*** Llamado al metodo toString() de la clase Transaction con los datos modificados");
+        System.out.println(mov + "\n");
         // Modificacion del monto (valor positivo)
         mov.setMonto(50000);
         System.out.println("Se cambió el monto (valor positivo)...");
@@ -193,8 +193,8 @@ public class Main {
         mov.setTipoMovimiento("consignacion");
         System.out.println("Se cambió el tipo de movimiento...");
         // Se imprimen los datos modificados del objeto mov
-        System.out.println("\n*** Llamado al metodo toString() de la clase MovimientoDinero con los datos modificados");
-        System.out.println(mov.toString());
+        System.out.println("\n*** Llamado al metodo toString() de la clase Transaction con los datos modificados");
+        System.out.println(mov);
 
     }
 }

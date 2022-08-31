@@ -1,16 +1,16 @@
 package com.innovedcol.ecofamily.entities;
 
-public class Empleado {
+public class Employee {
 
     private String nombre;
     private String correo;
-    private Empresa empresaContratante;
+    private Enterprise enterpriseContratante;
     private String rol;
 
-    public Empleado(String nombre, String correo, Empresa empresaContratante, String rol) {
+    public Employee(String nombre, String correo, Enterprise enterpriseContratante, String rol) {
         this.nombre = nombre;
         this.correo = correo;
-        this.empresaContratante = empresaContratante;
+        this.enterpriseContratante = enterpriseContratante;
         this.rol = rol;
     }
 
@@ -30,12 +30,12 @@ public class Empleado {
         this.correo = correo;
     }
 
-    public Empresa getEmpresaContratante() {
-        return empresaContratante;
+    public Enterprise getEmpresaContratante() {
+        return enterpriseContratante;
     }
 
-    public void setEmpresaContratante(Empresa empresaContratante) {
-        this.empresaContratante = empresaContratante;
+    public void setEmpresaContratante(Enterprise enterpriseContratante) {
+        this.enterpriseContratante = enterpriseContratante;
     }
 
     public String getRol() {
@@ -48,10 +48,10 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" +
+        return "Employee{" +
                 "nombre='" + nombre + '\'' +
                 ", correo='" + correo + '\'' +
-                ", empresaContratante='" + empresaContratante.getNombre() + '\'' +
+                ", enterpriseContratante='" + enterpriseContratante.getNombre() + '\'' +
                 ", rol='" + rol + '\'' +
                 '}';
     }
