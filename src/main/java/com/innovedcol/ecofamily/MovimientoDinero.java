@@ -4,7 +4,7 @@ public class MovimientoDinero {
 
     private double monto;
     private String concepto;
-    private String  tipoMovimiento;
+    private String tipoMovimiento;
     private String usuario;
 
     public MovimientoDinero(double monto, String concepto, String tipoMovimiento, String usuario) {

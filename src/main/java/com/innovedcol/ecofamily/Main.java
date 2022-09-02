@@ -40,6 +40,7 @@ public class Main {
         System.out.println(mov);
 
         //Clase empresa:
+        System.out.println("\n-- Test de clase empresa");
         Empresa Emp= new Empresa("CAfe","Calle 98c #06-7","3015900465","1234");
         System.out.println(Emp.toString());
 
