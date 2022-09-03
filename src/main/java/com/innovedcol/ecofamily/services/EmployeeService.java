@@ -18,9 +18,9 @@ public class EmployeeService {
 
     // Datos iniciales:
     public void initialData(){
-        EmployeesList.add(new Employee("Matthew Zuñiga","juan@jzgdevelopers.com",Enterprise.getEnterprises(2),"Admin"));
-        EmployeesList.add(new Employee("Alexander Carvajal","alexander@automantec.com",Enterprise.getEnterprises(1),"Operario"));
-        EmployeesList.add(new Employee("Alejandra Moreano", "alejandra@ecofamily.com", Enterprise.getEnterprises(0),"Operario"));
+        EmployeesList.add(new Employee("Matthew Zuñiga","juan@jzgdevelopers.com",Enterprise.searchEnterprise(2),"Admin"));
+        EmployeesList.add(new Employee("Alexander Carvajal","alexander@automantec.com",Enterprise.searchEnterprise(1),"Operario"));
+        EmployeesList.add(new Employee("Alejandra Moreano", "alejandra@ecofamily.com", Enterprise.searchEnterprise(0),"Operario"));
     }
 
     // Método que retorna el arraylist de todos los empleados:
@@ -28,13 +28,8 @@ public class EmployeeService {
         return EmployeesList;
     }
 
-    // Método que retorna un objeto de tipo empleado según su index:
-    public Employee getEmployees(int index){
-        return EmployeesList.get(index);
-    }
-
     // Método que retorna la información de un empleado del listado según su index:
-    public Employee searchEmployee (int index){
+    public Employee searchEmployee(int index){
         return EmployeesList.get(index);
     }
 

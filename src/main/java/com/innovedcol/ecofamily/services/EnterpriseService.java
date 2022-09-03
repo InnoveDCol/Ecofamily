@@ -20,11 +20,6 @@ public class EnterpriseService {
         enterprisesList.add(new Enterprise("JZG Developers","Cartagena","6613524","1143343653-0"));
     }
 
-    // Metodo que retorna un objeto de tipo empresa segun su index
-    public Enterprise getEnterprises(int index){
-        return enterprisesList.get(index);
-    }
-
     // Metodo que retorna el arraylist de todas las empresas
     public ArrayList<Enterprise> getEnterprisesList(){
         return enterprisesList;
