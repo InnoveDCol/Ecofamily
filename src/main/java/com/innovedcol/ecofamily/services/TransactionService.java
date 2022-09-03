@@ -21,6 +21,7 @@ public class TransactionService {
     // Metodo para cargar datos iniciales de las transacciones
     public void datosIniciales(){
         //TODO: Implementar un metodo del servicio Employee para obtener los datos de un empleado segun si index y cambiar las lineas 24 a 100 por las lineas 102 a 108 que estan comentadas
+        /*
         transactionsList.add(
                 new Transaction(20000,
                         "Consignacion inicial",
@@ -98,12 +99,12 @@ public class TransactionService {
                                 "Operario")
                 )
         );
-
-        //transactionsList.add(new Transaction(20000,"Consignacion inicial","consignacion",employeeService.getEmployees(0)));
-        //transactionsList.add(new Transaction(-10000,"Retiro 30/08/22","retiro",employeeService.getEmployees(0)));
-        //transactionsList.add(new Transaction(1000000,"Consignacion inicial","consignacion",employeeService.getEmployees(1)));
-        //transactionsList.add(new Transaction(-65000,"Retiro 30/08/22","retiro",employeeService.getEmployees(1)));
-        //transactionsList.add(new Transaction(-65000,"Retiro 01/09/22","retiro",employeeService.getEmployees(1)));
+        */
+        transactionsList.add(new Transaction(20000,"Consignacion inicial","consignacion",employeeService.getEmployees(0)));
+        transactionsList.add(new Transaction(-10000,"Retiro 30/08/22","retiro",employeeService.getEmployees(0)));
+        transactionsList.add(new Transaction(1000000,"Consignacion inicial","consignacion",employeeService.getEmployees(1)));
+        transactionsList.add(new Transaction(-65000,"Retiro 30/08/22","retiro",employeeService.getEmployees(1)));
+        transactionsList.add(new Transaction(-65000,"Retiro 01/09/22","retiro",employeeService.getEmployees(1)));
         //transactionsList.add(new Transaction(65240000,"Consignacion inicial","consignacion",employeeService.getEmployees(4)));
         //transactionsList.add(new Transaction(-5862000,"Retiro 02/09/22","retiro",employeeService.getEmployees(4)));
 
