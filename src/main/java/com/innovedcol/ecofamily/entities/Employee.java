@@ -1,11 +1,16 @@
 package com.innovedcol.ecofamily.entities;
 
+import java.util.ArrayList;
+
 public class Employee {
 
     private String nombre;
     private String correo;
     private Enterprise enterpriseContratante;
     private String rol;
+
+    // TODO: Atributo para listar los movimientos de dinero de una empresa
+    private ArrayList<Transaction> transactionList;
 
     public Employee(String nombre, String correo, Enterprise enterpriseContratante, String rol) {
         this.nombre = nombre;
