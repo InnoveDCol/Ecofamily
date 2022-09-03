@@ -1,11 +1,12 @@
 package com.innovedcol.ecofamily.services;
 
-import com.innovedcol.ecofamily.entities.Employee;
-import com.innovedcol.ecofamily.entities.Enterprise;
+
 import com.innovedcol.ecofamily.entities.Transaction;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service
 public class TransactionService {
 
     EmployeeService employeeService;

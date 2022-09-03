@@ -1,9 +1,11 @@
 package com.innovedcol.ecofamily.services;
 
 import com.innovedcol.ecofamily.entities.Enterprise;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service
 public class EnterpriseService {
 
     // Creamos el arraylist que contendrá las empresas

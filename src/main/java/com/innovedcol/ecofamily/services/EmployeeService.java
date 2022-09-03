@@ -1,8 +1,11 @@
 package com.innovedcol.ecofamily.services;
 
 import com.innovedcol.ecofamily.entities.Employee;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 
+@Service
 public class EmployeeService {
 
     EnterpriseService Enterprise;//Variable(Enterprise) de tipo EnterpriseService.
