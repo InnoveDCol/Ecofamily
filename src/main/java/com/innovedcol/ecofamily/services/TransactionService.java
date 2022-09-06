@@ -27,8 +27,8 @@ public class TransactionService {
         transactionsList.add(new Transaction(1000000,"Consignacion inicial","consignacion",employeeService.searchEmployee(1)));
         transactionsList.add(new Transaction(-65000,"Retiro 30/08/22","retiro",employeeService.searchEmployee(1)));
         transactionsList.add(new Transaction(-65000,"Retiro 01/09/22","retiro",employeeService.searchEmployee(1)));
-        transactionsList.add(new Transaction(65240000,"Consignacion inicial","consignacion",employeeService.searchEmployee(4)));
-        transactionsList.add(new Transaction(-5862000,"Retiro 02/09/22","retiro",employeeService.searchEmployee(4)));
+        transactionsList.add(new Transaction(65240000,"Consignacion inicial","consignacion",employeeService.searchEmployee(2)));
+        transactionsList.add(new Transaction(-5862000,"Retiro 02/09/22","retiro",employeeService.searchEmployee(2)));
 
     }
 
