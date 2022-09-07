@@ -1,58 +1,102 @@
 package com.innovedcol.ecofamily.entities;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Transaction")
 public class Transaction {
 
-    private double monto;
-    private String concepto;
-    private String  tipoMovimiento;
-    private Employee usuario;
+    // Atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(unique = true)
+    private Long id;
+    @Column(nullable = false)
+    private String concept;
+    @Column(nullable = false)
+    private double amount;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Employee user;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Enterprise enterprise;
+    @Column(nullable = false)
+    private String type;
 
-    public Transaction(double monto, String concepto, String tipoMovimiento, Employee usuario) {
-        this.monto = monto;
-        this.concepto = concepto;
-        this.tipoMovimiento = tipoMovimiento;
-        this.usuario = usuario;
+    // Constructor vacio
+    public Transaction() {
     }
 
-    public double getMonto() {
-        return monto;
+    // Constructor completo
+    public Transaction(Long id, String concept, double amount, Employee user, Enterprise enterprise, String type) {
+        this.id = id;
+        this.concept = concept;
+        this.amount = amount;
+        this.user = user;
+        this.enterprise = enterprise;
+        this.type = type;
     }
 
-    public void setMonto(double monto) {
-        this.monto = monto;
+    // Getters and setters
+
+    public Long getId() {
+        return id;
     }
 
-    public String getConcepto() {
-        return concepto;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setConcepto(String concepto) {
-        this.concepto = concepto;
+    public String getConcept() {
+        return concept;
     }
 
-    public String getTipoMovimiento() {
-        return tipoMovimiento;
+    public void setConcept(String concept) {
+        this.concept = concept;
     }
 
-    public void setTipoMovimiento(String tipoMovimiento) {
-        this.tipoMovimiento = tipoMovimiento;
+    public double getAmount() {
+        return amount;
     }
 
-    public Employee getUsuario() {
-        return usuario;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public void setUsuario(Employee usuario) {
-        this.usuario = usuario;
+    public Employee getUser() {
+        return user;
+    }
+
+    public void setUser(Employee user) {
+        this.user = user;
+    }
+
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
         return "Transaction{" +
-                "monto=" + monto +
-                ", concepto='" + concepto + '\'' +
-                ", tipoMovimiento='" + tipoMovimiento + '\'' +
-                ", usuario='" + usuario.getNombre() + '\'' +
+                "id=" + id +
+                ", concept='" + concept + '\'' +
+                ", amount=" + amount +
+                ", user=" + user +
+                ", enterprise=" + enterprise +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

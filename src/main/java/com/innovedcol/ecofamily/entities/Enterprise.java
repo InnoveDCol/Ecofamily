@@ -1,57 +1,139 @@
 package com.innovedcol.ecofamily.entities;
 
+import javax.persistence.*;
+import java.util.*;
+
+@Entity
+@Table(name = "Enterprise")
 public class Enterprise {
-    private String nombre;
-    private String direccion;
-    private String telefono;
-    private String nit;
 
-    public Enterprise(String nombre, String direccion, String telefono, String nit) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.nit = nit;
+    // Atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(unique = true)
+    private Long id;
+    @Column(nullable = false, unique = true)
+    private String name;
+    @Column(nullable = false, unique = true)
+    private String document;
+    @Column(nullable = false)
+    private String phone;
+    @Column(nullable = false)
+    private String address;
+    @OneToMany(cascade= {CascadeType.ALL})
+    @JoinColumn(nullable = true)
+    private List<Employee> users;
+    @OneToMany(cascade= {CascadeType.ALL})
+    @Column(nullable = true)
+    private List<Transaction> transactions;
+    @Column(nullable = false)
+    private Calendar createdAt;
+    @Column(nullable = false)
+    private Calendar updatedAt;
+
+    // Constructor vacio
+    public Enterprise() {
     }
 
-    public String getNombre() {
-        return nombre;
+    // Constructor completo
+    public Enterprise(Long id, String name, String document, String phone, String address, List<Employee> users, List<Transaction> transactions, Calendar createdAt, Calendar updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.document = document;
+        this.phone = phone;
+        this.address = address;
+        this.users = users;
+        this.transactions = transactions;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    // Getters and setters
+
+    public Long getId() {
+        return id;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public String getName() {
+        return name;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public String getDocument() {
+        return document;
     }
 
-    public String getNit() {
-        return nit;
+    public void setDocument(String document) {
+        this.document = document;
     }
 
-    public void setNit(String nit) {
-        this.nit = nit;
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<Employee> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<Employee> listEmployees) {
+        this.users = listEmployees;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> listTransactions) {
+        this.transactions = listTransactions;
+    }
+
+    public Calendar getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Calendar createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Calendar getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Calendar updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
     public String toString() {
         return "Enterprise{" +
-                "nombre='" + nombre + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", nit='" + nit + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", document='" + document + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", users=" + users +
+                ", transactions=" + transactions +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

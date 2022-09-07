@@ -1,53 +1,58 @@
 package com.innovedcol.ecofamily.services;
 
 import com.innovedcol.ecofamily.entities.Enterprise;
+import com.innovedcol.ecofamily.repositories.EnterpriseRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.*;
 
 @Service
 public class EnterpriseService {
 
-    // Creamos el arraylist que contendrá las empresas
-    ArrayList<Enterprise> enterprisesList = new ArrayList<>();
+    // Definimos un atributo de tipo repositorio
+    private final EnterpriseRepository repository;
 
-    public EnterpriseService() { // Constructor vacio
-        this.datosIniciales(); // Se llenan los datos iniciales de las empresas
+    public EnterpriseService(EnterpriseRepository repository) {
+        this.repository = repository;
     }
 
-    // Metodo para cargar datos iniciales de las empresas
-    public void datosIniciales(){
-        enterprisesList.add(new Enterprise("Ecofamily","Medellin","4561235","123456987-4"));
-        enterprisesList.add(new Enterprise("AutoMantec S.A.","Barranquilla","6586452","54632178-1"));
-        enterprisesList.add(new Enterprise("JZG Developers","Cartagena","6613524","1143343653-0"));
-    }
-
-    // Metodo que retorna el arraylist de todas las empresas
+    // Método que retorna un arraylist con el listado de las empresas
     public ArrayList<Enterprise> getEnterprisesList(){
-        return enterprisesList;
+        return (ArrayList<Enterprise>) repository.findAll();
     }
 
-    // Metodo que retorna la informacion de una empresa del listado segun su index
-    public Enterprise searchEnterprise(int index){
-        return enterprisesList.get(index);
+    // Método que retorna un objeto de tipo Enterprise según su ID
+    public Optional<Enterprise> searchEnterprise(Long id){
+        return repository.findById(id);
     }
 
-    // Metodo que crea una empresa y la añade al listado. Retorna un mensaje
+    // Método que crea una empresa y la añade a la base de datos. Retorna un mensaje
     public String createEnterprise(Enterprise e){
-        enterprisesList.add(e);
-        return "--> Empresa creada";
+        if(searchEnterprise(e.getId()).isEmpty()){
+            repository.save(e);
+            return "--> Empresa creada con éxito!";
+        }else{
+            return "--> Empresa ya existe!";
+        }
     }
 
-    // Metodo que actualiza la informacion de una empresa segun su index. Retorna un mensaje
-    public String updateEnterprise(int index, Enterprise e){
-        enterprisesList.set(index, e);
-        return "--> Empresa actualizada";
+    // Método que actualiza la información de una empresa según su id. Retorna un mensaje
+    public String updateEnterprise(Long id, Enterprise e){
+        if(searchEnterprise(id).isPresent()){
+            repository.save(e);
+            return "--> Empresa actualizada con éxito!";
+        }else{
+            return "--> La empresa indicada no existe!";
+        }
     }
 
-    // Metodo que elimina una empresa del listado. Retorna un mensaje
-    public String deleteEnterprise(int index){
-        enterprisesList.remove(index);
-        return "--> Empresa eliminada";
+    // Método que elimina una empresa de la base de datos. Retorna un mensaje
+    public String deleteEnterprise(Long id){
+        if(searchEnterprise(id).isPresent()){
+            repository.deleteById(id);
+            return "--> Empresa eliminada con éxito!";
+        }else{
+            return "--> La empresa indicada no existe!";
+        }
     }
-
 }
