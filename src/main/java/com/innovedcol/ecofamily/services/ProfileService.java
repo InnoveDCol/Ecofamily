@@ -29,19 +29,32 @@ public class ProfileService {
 
     // Método que crea un perfil y lo añade a la base de datos. Retorna un mensaje
     public String createProfile(Profile p){
-        repository.save(p);
-        return "--> El perfil con ID " + p.getId() + " fue creado satisfactoriamente!";
+        if(searchProfile(p.getId()).isEmpty()){
+            repository.save(p);
+            return "--> Perfil creado con exito!";
+        }else{
+            return "--> Perfil ya existe!";
+        }
     }
 
     // Método que actualiza la información de un perfil según su id. Retorna un mensaje
     public String updateProfile(String id, Profile p){
-        //TODO: Completar esta parte del codigo
-        return "--> El perfil con ID " + p.getId() + " fue actualizado satisfactoriamente!";
+        if(searchProfile(id).isPresent()){
+            repository.save(p);
+            return "--> Perfil actualizado con exito!";
+        }else{
+            return "--> El perfil indicado no existe!";
+        }
     }
 
-    // Método que elimina una transacción de la base de datos. Retorna un mensaje
+    // Método que elimina un perfil de la base de datos. Retorna un mensaje
     public String deleteProfile(String id){
-        repository.deleteById(id);
-        return "--> El perfil con ID " + id + " fue eliminado satisfactoriamente!";
+        if(searchProfile(id).isPresent()){
+            repository.deleteById(id);
+            return "--> Perfil eliminado con exito!";
+        }else{
+            return "--> El perfil indicado no existe!";
+        }
+
     }
 }

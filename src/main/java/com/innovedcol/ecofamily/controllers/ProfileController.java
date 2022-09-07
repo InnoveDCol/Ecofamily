@@ -37,7 +37,7 @@ public class ProfileController {
     }
 
     // Método para llamar al servicio que actualiza la info de un perfil
-    @PutMapping("/profiles/{id}")
+    @PatchMapping("/profiles/{id}")
     public String updateProfile(@PathVariable("id") String id, @RequestBody Profile p){
         return this.service.updateProfile(id,p);
     }
