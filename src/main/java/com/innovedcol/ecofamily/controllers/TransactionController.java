@@ -1,42 +1,44 @@
 package com.innovedcol.ecofamily.controllers;
 
-
 import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.services.TransactionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 public class TransactionController {
 
     TransactionService service;
 
-    public TransactionController() {
-        this.service = new TransactionService();
+    public TransactionController(TransactionService service) {
+        this.service = service;
     }
 
-    @GetMapping("/listMovements")
-
+    @GetMapping("/movements")
     public ArrayList <Transaction> listMovements (){
         return this.service.getTransactionsList();
     }
 
-    @GetMapping("/movements/{index}")
-    public Transaction searchTransaction(@PathVariable("index") Integer index) {
-     return this.service.searchTransaction(index);
-    }
-    @PostMapping("/create")
+    @PostMapping("/movements")
     public String createTransaction(@RequestBody Transaction t){
         return this.service.createTransaction(t);
     }
-    @PatchMapping("/Update/{index}")
-    public String updateTransaction(@PathVariable("index") Integer index, @RequestBody Transaction t){
-    return this.service.updateTransaction(index,t);
+
+    @GetMapping("/movements/{id}")
+    public Optional< Transaction> searchTransaction(@PathVariable("id") Long id) {
+     return this.service.searchTransaction(id);
     }
-    @DeleteMapping("/delete/{index}")
-    public String deleteTransaction(@PathVariable ("index") Integer index) {
-        return this.service.deleteTransaction(index);
+
+    @PatchMapping("/Update/{id}")
+    public String updateTransaction(@PathVariable("id") Long id, @RequestBody Transaction t){
+    return this.service.updateTransaction(id,t);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteTransaction(@PathVariable ("id") Long id) {
+        return this.service.deleteTransaction(id);
     }
 
 
