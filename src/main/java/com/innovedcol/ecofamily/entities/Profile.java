@@ -15,9 +15,8 @@ public class Profile {
     private String image;
     @Column(nullable = false)
     private String phone;
-    //TODO: Quitar comentarios de las 2 lineas siguientes cuando se complete la Entidad Employee
-    //@OneToOne
-    //@JoinColumn(nullable = true)
+    @OneToOne
+    @JoinColumn(nullable = true)
     private Employee user;
     @Column(nullable = false)
     private Calendar createdAt;

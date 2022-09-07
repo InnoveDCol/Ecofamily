@@ -31,7 +31,7 @@ public class ProfileService {
     public String createProfile(Profile p){
         if(searchProfile(p.getId()).isEmpty()){
             repository.save(p);
-            return "--> Perfil creado con exito!";
+            return "--> Perfil creado con éxito!";
         }else{
             return "--> Perfil ya existe!";
         }
@@ -41,7 +41,7 @@ public class ProfileService {
     public String updateProfile(String id, Profile p){
         if(searchProfile(id).isPresent()){
             repository.save(p);
-            return "--> Perfil actualizado con exito!";
+            return "--> Perfil actualizado con éxito!";
         }else{
             return "--> El perfil indicado no existe!";
         }
@@ -51,10 +51,9 @@ public class ProfileService {
     public String deleteProfile(String id){
         if(searchProfile(id).isPresent()){
             repository.deleteById(id);
-            return "--> Perfil eliminado con exito!";
+            return "--> Perfil eliminado con éxito!";
         }else{
             return "--> El perfil indicado no existe!";
         }
-
     }
 }
