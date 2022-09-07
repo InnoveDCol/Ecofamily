@@ -30,12 +30,12 @@ public class TransactionController {
      return this.service.searchTransaction(id);
     }
 
-    @PatchMapping("/Update/{id}")
+    @PatchMapping("/movements/{id}")
     public String updateTransaction(@PathVariable("id") Long id, @RequestBody Transaction t){
     return this.service.updateTransaction(id,t);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/movements/{id}")
     public String deleteTransaction(@PathVariable ("id") Long id) {
         return this.service.deleteTransaction(id);
     }
