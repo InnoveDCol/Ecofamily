@@ -112,11 +112,11 @@ public class Main {
         System.out.println("----------------------------------------\n");
         System.out.println("*** Prueba de Getters");
         // Lectura del nombre
-        System.out.println("Nombre del empleado: " + emp.getNombre());
+        System.out.println("Nombre del empleado: " + emp.getName());
         // Lectura del correo
-        System.out.println("Correo del empleado: " + emp.getCorreo());
+        System.out.println("Correo del empleado: " + emp.getEmail());
         // Lectura de la empresa contratante
-        System.out.println("Enterprise contratante: " + emp.getEmpresaContratante().getNombre());
+        System.out.println("Enterprise contratante: " + emp.getEnterpriseContratante().getName());
         // Lectura del rol
         System.out.println("Rol del empleado: " + emp.getRol());
 
@@ -124,13 +124,13 @@ public class Main {
         System.out.println("----------------------------------------\n");
         System.out.println("*** Prueba de Setters");
         // Modificacion del nombre
-        emp.setNombre("Hellder");
+        emp.setName("Hello");
         System.out.println("Se cambió el nombre...");
         // Modificacion del correo
-        emp.setCorreo("cccc@gmail.com");
+        emp.setEmail("cccc@gmail.com");
         System.out.println("Se cambió el correo...");
         // Modificacion de la empresa contratante
-        emp.setEmpresaContratante(enterprisePpal);
+        emp.setEnterpriseContratante(enterprisePpal);
         System.out.println("Se cambió la empresa contratante...");
         // Modificacion del rol
         emp.setRol("Contador");
