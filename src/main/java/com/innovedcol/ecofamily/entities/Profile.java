@@ -15,7 +15,7 @@ public class Profile {
     private String image;
     @Column(nullable = false)
     private String phone;
-    @OneToOne
+    @OneToOne (cascade= {CascadeType.ALL})
     @JoinColumn(nullable = true)
     private Employee user;
     @Column(nullable = false)

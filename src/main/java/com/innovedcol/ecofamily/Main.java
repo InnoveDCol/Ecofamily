@@ -7,13 +7,13 @@ import com.innovedcol.ecofamily.entities.Transaction;
 import java.util.Scanner;
 
 public class Main {
-
+/*
     // Definicion de una Enterprise principal
-    static Enterprise enterprisePpal = new Enterprise("Ecofamily","Cra 59C # 51 - 2","6666666","789654123");
+    // static Enterprise enterprisePpal = new Enterprise("Ecofamily","Cra 59C # 51 - 2","6666666","789654123");
     // Definicion de un Employee administrado
-    static Employee employeeAdmin = new Employee("Juan Esteban", "juanesteban@ecofamily.com", enterprisePpal,"Admin");
+    // static Employee employeeAdmin = new Employee("Juan Esteban", "juanesteban@ecofamily.com", enterprisePpal,"Admin");
     // Definicion de un Employee operario
-    static Employee employeeOper = new Employee("Andrea", "andrea@ecofamily.com", enterprisePpal,"Operario");
+    // static Employee employeeOper = new Employee("Andrea", "andrea@ecofamily.com", enterprisePpal,"Operario");
 
     public static void old_main() {
 
@@ -101,7 +101,7 @@ public class Main {
         System.out.println("\n========================================");
         System.out.println("-- TEST DE LA CLASE EMPLEADO --");
         // Nueva instancia de clase Employee: Se crea un objeto llamado emp
-        Employee emp = new Employee("Mario", "XXXX@gmail.com", new Enterprise("InnoveD Col","Cra 56 # 24-10","5555555","123456987"), "Almacenista");
+        // Employee emp = new Employee("Mario", "XXXX@gmail.com", new Enterprise("InnoveD Col","Cra 56 # 24-10","5555555","123456987"), "Almacenista");
 
         // Se imprimen los datos iniciales del objeto emp
         System.out.println("----------------------------------------\n");
@@ -118,7 +118,7 @@ public class Main {
         // Lectura de la empresa contratante
         System.out.println("Enterprise contratante: " + emp.getEnterpriseContratante().getName());
         // Lectura del rol
-        System.out.println("Rol del empleado: " + emp.getRol());
+        // System.out.println("Rol del empleado: " + emp.getRol());
 
         //Prueba de los setters:
         System.out.println("----------------------------------------\n");
@@ -133,7 +133,7 @@ public class Main {
         emp.setEnterpriseContratante(enterprisePpal);
         System.out.println("Se cambió la empresa contratante...");
         // Modificacion del rol
-        emp.setRol("Contador");
+        // emp.setRol("Contador");
         System.out.println("Se cambió el rol...");
         // Se imprimen los datos modificados del objeto emp
         System.out.println("\n*** Llamado al metodo toString() de la clase Employee con los datos modificados");
@@ -197,4 +197,5 @@ public class Main {
         System.out.println(mov);
 
     }
+   */
 }

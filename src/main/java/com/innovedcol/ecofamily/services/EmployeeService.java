@@ -8,22 +8,22 @@ import java.util.ArrayList;
 @Service
 public class EmployeeService {
 
-    EnterpriseService Enterprise;//Variable(Enterprise) de tipo EnterpriseService.
-    ArrayList<Employee> EmployeesList= new ArrayList<>();//Creamos el arraylist que contendrá los empleados.
+    EnterpriseService enterprise;//Variable(Enterprise) de tipo EnterpriseService.
+    ArrayList<Employee> employeesList= new ArrayList<>();//Creamos el arraylist que contendrá los empleados.
 
     //MÉTODOS//
 
     //Constructor(vacío): Tendrá los datos iniciales de empleados.
     public EmployeeService() {
-        this.Enterprise=new EnterpriseService();//Creamos el objeto para inicializar el servicio empresas.
+        this.enterprise=new EnterpriseService();//Creamos el objeto para inicializar el servicio empresas.
         this.initialData();
     }
 
     // Datos iniciales:
     public void initialData(){
-        EmployeesList.add(new Employee("Matthew Zuñiga","juan@jzgdevelopers.com",Enterprise.searchEnterprise(2),"Admin"));
-        EmployeesList.add(new Employee("Alexander Carvajal","alexander@automantec.com",Enterprise.searchEnterprise(1),"Operario"));
-        EmployeesList.add(new Employee("Alejandra Moreano", "alejandra@ecofamily.com", Enterprise.searchEnterprise(0),"Operario"));
+        // EmployeesList.add(new Employee("Matthew Zuñiga","juan@jzgdevelopers.com",Enterprise.searchEnterprise(2L),"Admin"));
+        // EmployeesList.add(new Employee("Alexander Carvajal","alexander@automantec.com",Enterprise.searchEnterprise(1L),"Operario"));
+        // EmployeesList.add(new Employee("Alejandra Moreano", "alejandra@ecofamily.com", Enterprise.searchEnterprise(0L),"Operario"));
     }
 
     // Método que retorna el arraylist de todos los empleados:

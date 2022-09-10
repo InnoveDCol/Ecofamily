@@ -21,10 +21,10 @@ public class Enterprise {
     @Column(nullable = false)
     private String address;
     @OneToMany(cascade= {CascadeType.ALL})
-    @JoinColumn(nullable = true)
+    @JoinColumn(nullable = false)
     private List<Employee> users;
     @OneToMany(cascade= {CascadeType.ALL})
-    @Column(nullable = true)
+    @Column(nullable = false)
     private List<Transaction> transactions;
     @Column(nullable = false)
     private Calendar createdAt;
