@@ -33,6 +33,14 @@ public class EnterpriseService {
         return repository.findById(id);
     }
 
+    public Optional<Enterprise> searchEnterpriseName(String name){
+        return repository.findByName(name);
+    }
+
+    public Optional<Enterprise> searchEnterpriseDocument(String document){
+        return repository.findByDocument(document);
+    }
+
     // Método que retorna un objeto de tipo Transaction que hacen parte de una empresa:
     public List<?> searchTransactionsEnterprise(Long id){
         if(searchEnterprise(id).isPresent()){
@@ -70,16 +78,22 @@ public class EnterpriseService {
     }
 
     // Método que crea una empresa y la añade a la base de datos. Retorna un mensaje
-    //TODO -> Validar que el nombre y el documento sean unicos (Guiarse de lo hecho en empleado)
     public String createEnterprise(Enterprise e){
         if(searchEnterprise(e.getId()).isEmpty()){
-            repository.save(e);
-            return "--> Empresa creada con éxito!";
+            if(searchEnterpriseName(e.getName()).isEmpty()) {
+                if(searchEnterpriseDocument(e.getDocument()).isEmpty()) {
+                    repository.save(e);
+                    return "--> Empresa creada con éxito!";
+                }else{
+                    return "--> El documento ingresado ya esta asociado a otra empresa!";
+                }
+            }else{
+                return "--> El nombre ingresado ya esta asociado a otra empresa!";
+            }
         }else{
             return "--> Empresa ya existe!";
         }
     }
-
     // Método que actualiza la información de una empresa según su id. Retorna un mensaje
     public String updateEnterprise(Long id, Enterprise e){
         if(searchEnterprise(id).isPresent()){

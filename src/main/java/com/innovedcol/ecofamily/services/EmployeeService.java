@@ -59,7 +59,7 @@ public class EmployeeService {
                     enterpriseRepository.findById(enterprise_id).map(ent -> {
                         e.setEnterprise(ent);
                         return employeeRepository.save(e);
-                    }).get();
+                    });
                     return "--> Empleado creado con éxito!";
                 }else {
                     return "--> La empresa ingresada no existe!!";
