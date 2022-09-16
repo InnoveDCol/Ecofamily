@@ -4,19 +4,17 @@ import com.innovedcol.ecofamily.entities.Employee;
 import com.innovedcol.ecofamily.entities.Enterprise;
 import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.repositories.EnterpriseRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@AllArgsConstructor
 public class EnterpriseService {
 
     // Definimos un atributo de tipo repositorio
     private final EnterpriseRepository repository;
-
-    public EnterpriseService(EnterpriseRepository repository) {
-        this.repository = repository;
-    }
 
     // Método que retorna un arraylist con el listado de las empresas:
     public List<?> getEnterprisesList(){

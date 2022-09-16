@@ -2,18 +2,16 @@ package com.innovedcol.ecofamily.controllers;
 
 import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.services.TransactionService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
+@AllArgsConstructor
 public class TransactionController {
 
-    TransactionService service;
-
-    public TransactionController(TransactionService service) {
-        this.service = service;
-    }
+    private final TransactionService service;
 
     @GetMapping("/movements")
     public List <?> listMovements (){

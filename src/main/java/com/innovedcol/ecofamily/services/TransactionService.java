@@ -6,12 +6,14 @@ import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.repositories.EmployeeRepository;
 import com.innovedcol.ecofamily.repositories.EnterpriseRepository;
 import com.innovedcol.ecofamily.repositories.TransactionRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
+@AllArgsConstructor
 public class TransactionService {
 
     // Definimos un atributo de tipo repositorio
@@ -20,16 +22,6 @@ public class TransactionService {
     private final EnterpriseRepository enterpriseRepository;
     private final EmployeeService employeeService;
     private final EnterpriseService enterpriseService;
-
-
-    // Constructor
-    public TransactionService(TransactionRepository transactionRepository, EmployeeRepository employeeRepository, EnterpriseRepository enterpriseRepository, EmployeeService employeeService, EnterpriseService enterpriseService) {
-        this.transactionRepository = transactionRepository;
-        this.employeeRepository = employeeRepository;
-        this.enterpriseRepository = enterpriseRepository;
-        this.employeeService = employeeService;
-        this.enterpriseService = enterpriseService;
-    }
 
     // Método que retorna un arraylist con el listado de las transacciones
     public List<?> getTransactionsList(){

@@ -2,21 +2,18 @@ package com.innovedcol.ecofamily.controllers;
 
 import com.innovedcol.ecofamily.entities.Enterprise;
 import com.innovedcol.ecofamily.services.EnterpriseService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 @RestController
+@AllArgsConstructor
 public class EnterpriseController {
 
     //ATRIBUTOS
     private final EnterpriseService enterpriseService;
 
     //MÉTODOS
-
-    //Constructor:
-    public EnterpriseController(EnterpriseService enterpriseService) {
-        this.enterpriseService = enterpriseService;
-    }
 
     // Método para llamar al servicio que retorna el arraylist de todos los empleados:
     @GetMapping("/enterprises")

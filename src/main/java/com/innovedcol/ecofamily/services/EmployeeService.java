@@ -5,26 +5,19 @@ import com.innovedcol.ecofamily.entities.Enterprise;
 import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.repositories.EmployeeRepository;
 import com.innovedcol.ecofamily.repositories.EnterpriseRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
+@AllArgsConstructor
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final EnterpriseRepository enterpriseRepository;
     private final EnterpriseService enterpriseService;
-
-    //MÉTODOS//
-
-    //Constructor:
-    public EmployeeService(EmployeeRepository employeeRepository, EnterpriseRepository enterpriseRepository, EnterpriseService enterpriseService) {
-        this.employeeRepository = employeeRepository;
-        this.enterpriseRepository = enterpriseRepository;
-        this.enterpriseService = enterpriseService;
-    }
 
     // Método que retorna el arraylist de todos los empleados:
     public List<?> getEmployeesList(){
