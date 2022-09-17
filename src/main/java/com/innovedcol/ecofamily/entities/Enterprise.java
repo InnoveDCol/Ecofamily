@@ -9,8 +9,7 @@ public class Enterprise {
 
     // Atributos
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -26,16 +25,18 @@ public class Enterprise {
     private String address;
 
     @OneToMany(mappedBy = "enterpriseContratante")//Corregido.
-    //@JoinColumn(nullable = false)
+    @Column(name="employees")
     private List<Employee> users;
 
     @OneToMany(mappedBy = "enterprise")//Corregido.
-    //@Column(nullable = false)
+    @Column(nullable = true)
     private List<Transaction> transactions;
 
+    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Calendar createdAt;
 
+    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Calendar updatedAt;
 
