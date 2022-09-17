@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "Enterprise")
+@Table(name = "ENTERPRISES")
 public class Enterprise {
 
     // Atributos

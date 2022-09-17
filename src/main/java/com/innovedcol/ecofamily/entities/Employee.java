@@ -145,4 +145,20 @@ public class Employee {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", rol=" + rol +
+                ", image='" + image + '\'' +
+                ", enterpriseContratante=" + enterpriseContratante +
+                ", transactionList=" + transactionList +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

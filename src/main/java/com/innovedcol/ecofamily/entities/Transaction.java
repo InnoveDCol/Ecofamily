@@ -1,16 +1,18 @@
 package com.innovedcol.ecofamily.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.innovedcol.ecofamily.enums.EnumTypeTransaction;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
 
 @Entity
-@Table(name = "Transaction")
+@Table(name = "TRANSACTIONS")
 public class Transaction {
 
     // Atributos
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -20,41 +22,45 @@ public class Transaction {
     private double amount;
 
     @ManyToOne
-    @JoinColumn(name = "Employee_ID",nullable = false)//Corregido.
+    @JoinColumn(name = "employee")//Corregido.
+    @JsonIgnore
     private Employee user;
 
     @ManyToOne
-    @JoinColumn(name = "Enterprise_ID",nullable = false)//Corregido.
+    @JoinColumn(name = "enterprise")//Corregido.
+    @JsonIgnore
     private Enterprise enterprise;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String type;
+    private EnumTypeTransaction type;
 
-    @Column (nullable = false)
-    private Date updatedAt;
-
-    @Column (nullable = false)
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
     private Date createdAt;
+
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = true)
+    private Date updatedAt;
 
     // Constructor vacio
     public Transaction() {
     }
 
     // Constructor completo
-
-    public Transaction(Long id, String concept, double amount, Employee user, Enterprise enterprise, String type, Date updatedAt, Date createdAt) {
+    public Transaction(Long id, String concept, double amount, Employee user, Enterprise enterprise, EnumTypeTransaction type, Date createdAt, Date updatedAt) {
         this.id = id;
         this.concept = concept;
         this.amount = amount;
         this.user = user;
         this.enterprise = enterprise;
         this.type = type;
-        this.updatedAt = updatedAt;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-
     // Getters and setters:
+
     public Long getId() {
         return id;
     }
@@ -95,20 +101,12 @@ public class Transaction {
         this.enterprise = enterprise;
     }
 
-    public String getType() {
+    public EnumTypeTransaction getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(EnumTypeTransaction type) {
         this.type = type;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public Date getCreatedAt() {
@@ -119,6 +117,14 @@ public class Transaction {
         this.createdAt = createdAt;
     }
 
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -127,10 +133,9 @@ public class Transaction {
                 ", amount=" + amount +
                 ", user=" + user +
                 ", enterprise=" + enterprise +
-                ", type='" + type + '\'' +
-                ", updatedAt=" + updatedAt +
+                ", type=" + type +
                 ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
-
 }
