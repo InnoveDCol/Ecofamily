@@ -37,6 +37,7 @@ public class Employee {
     private Enterprise enterpriseContratante;
 
     @OneToMany(mappedBy = "user")//Corregido.
+    @Column(name = "transactions")
     private List<Transaction> transactionList;
 
     @Temporal(TemporalType.DATE)

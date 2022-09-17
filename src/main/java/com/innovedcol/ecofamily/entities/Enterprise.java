@@ -37,7 +37,7 @@ public class Enterprise {
     private Calendar createdAt;
 
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Calendar updatedAt;
 
     // Constructor vacio
