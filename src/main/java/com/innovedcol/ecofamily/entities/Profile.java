@@ -11,15 +11,20 @@ public class Profile {
     @Id
     @Column(unique = true)
     private String id;
+
     @Column(nullable = false)
     private String image;
+
     @Column(nullable = false)
     private String phone;
+
     @OneToOne (cascade= {CascadeType.ALL})
-    @JoinColumn(nullable = true)
+    //@JoinColumn(nullable = true)
     private Employee user;
+
     @Column(nullable = false)
     private Calendar createdAt;
+
     @Column(nullable = false)
     private Calendar updatedAt;
 

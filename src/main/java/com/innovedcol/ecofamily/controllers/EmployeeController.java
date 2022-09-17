@@ -16,31 +16,30 @@ public class EmployeeController {
     // CONSTRUCTOR
     public EmployeeController(EmployeeService employeeService) { this.service = employeeService; }
 
-    // Método para llamar al servicio que retorna el arraylist de todos los empleados.
+    // Método para llamar al servicio que retorna el arraylist de todos los empleados:
     @GetMapping("/users")
     public ArrayList<Employee> EmployeeList () {
         return this.service.getEmployeesList();
     }
 
-    // Método para llamar al servicio que crea un nuevo empleado.
+    // Método para llamar al servicio que crea un nuevo empleado:
     @PostMapping("/users")
     public String createEmployee (@RequestBody Employee e) {
         return this.service.createEmployee(e);
     }
 
-    // Método para llamar al servicio que busca un empleado de acuerdo a su index.
-    // TODO: CAMBIAR EL TIPO DE RETORNO DEL METODO A OPTIONAL<EMPLOYEE>.
+    // Método para llamar al servicio que busca un empleado de acuerdo a su id:
     @GetMapping("/user/{id}")
-    public Employee searchEmployee(@PathVariable("id") int id){
+    public Optional<Employee> searchEmployee(@PathVariable("id") Long id){
         return this.service.searchEmployee(id);
     }
 
-    // Método para llamar al servicio que actualiza la info de un employee.
-    @PatchMapping("/user/{i}")
-    public String updateEmployee(@PathVariable("i") int i, @RequestBody Employee emp) { return this.service.updateEmployee(i,emp); }
+    // Método para llamar al servicio que actualiza la info de un employee:
+    @PatchMapping("/user/{id}")
+    public String updateEmployee(@PathVariable("id") Long id, @RequestBody Employee emp) { return this.service.updateEmployee(id,emp); }
 
-    // Método para llamar al servicio que eliminar un perfil
-    @DeleteMapping("/user/{i}")
-    public String deleteEmployee(@PathVariable("id") int i) { return this.service.deleteEmployee(i); }
+    // Método para llamar al servicio que elimina un perfil:
+    @DeleteMapping("/user/{id}")
+    public String deleteEmployee(@PathVariable("id") Long id) { return this.service.deleteEmployee(id); }
 
 }

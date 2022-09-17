@@ -16,12 +16,12 @@ public class EnterpriseService {
         this.repository = repository;
     }
 
-    // Método que retorna un arraylist con el listado de las empresas
+    // Método que retorna un arraylist con el listado de las empresas:
     public ArrayList<Enterprise> getEnterprisesList(){
         return (ArrayList<Enterprise>) repository.findAll();
     }
 
-    // Método que retorna un objeto de tipo Enterprise según su ID
+    // Método que retorna un objeto de tipo Enterprise según su ID:
     public Optional<Enterprise> searchEnterprise(Long id){
         return repository.findById(id);
     }
@@ -55,4 +55,5 @@ public class EnterpriseService {
             return "--> La empresa indicada no existe!";
         }
     }
+
 }

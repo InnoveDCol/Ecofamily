@@ -1,57 +1,77 @@
 package com.innovedcol.ecofamily.services;
 
 import com.innovedcol.ecofamily.entities.Employee;
+import com.innovedcol.ecofamily.entities.Enterprise;
+import com.innovedcol.ecofamily.repositories.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
 
+    private final EmployeeRepository employeeRepository;
+
+    /*
     EnterpriseService enterprise;//Variable(Enterprise) de tipo EnterpriseService.
     ArrayList<Employee> employeesList= new ArrayList<>();//Creamos el arraylist que contendrá los empleados.
+    */
 
     //MÉTODOS//
 
-    //Constructor(vacío): Tendrá los datos iniciales de empleados.
-    public EmployeeService() {
-        this.enterprise=new EnterpriseService();//Creamos el objeto para inicializar el servicio empresas.
-        this.initialData();
+    //Constructor:
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
+    /*
     // Datos iniciales:
     public void initialData(){
         // EmployeesList.add(new Employee("Matthew Zuñiga","juan@jzgdevelopers.com",Enterprise.searchEnterprise(2L),"Admin"));
         // EmployeesList.add(new Employee("Alexander Carvajal","alexander@automantec.com",Enterprise.searchEnterprise(1L),"Operario"));
         // EmployeesList.add(new Employee("Alejandra Moreano", "alejandra@ecofamily.com", Enterprise.searchEnterprise(0L),"Operario"));
     }
+    */
 
     // Método que retorna el arraylist de todos los empleados:
     public ArrayList<Employee> getEmployeesList(){
-        return EmployeesList;
+        return (ArrayList<Employee>) employeeRepository.findAll();
     }
 
-    // Método que retorna la información de un empleado del listado según su index:
-    public Employee searchEmployee(int index){
-        return EmployeesList.get(index);
+    // Buscar: Método que retorna un objeto de tipo Employee según su ID:
+    public Optional<Employee> searchEmployee(Long id){
+        return employeeRepository.findById(id);
     }
 
-    // Método que crea un empleado y la añade al listado, retornando un mensaje:
+    // Insertar: Método que crea un empleado y la añade a la base de datos. Retorna un mensaje:
     public String createEmployee(Employee emp){
-        EmployeesList.add(emp);
-        return "--> Empleado creado con éxito";
+        if(searchEmployee(emp.getId()).isEmpty()){
+            employeeRepository.save(emp);
+            return "--> Empleado creado con éxito!";
+        }else{
+            return "--> El empleado ya existe!";
+        }
     }
 
-    // Método que actualiza la información de una empresa según su index, retornando un mensaje:
-    public String updateEmployee(int index, Employee emp){
-        EmployeesList.set(index, emp);
-        return "--> Empleado actualizado con éxito";
+    // Actualizar: Método que actualiza la información de un empleado según su id. Retorna un mensaje:
+    public String updateEmployee(Long id, Employee emp){
+        if(searchEmployee(id).isPresent()){
+            employeeRepository.save(emp);
+            return "--> Empleado actualizado con éxito!";
+        }else{
+            return "--> El empleado indicado no existe!";
+        }
     }
 
-    // Método que elimina un empleado del listado, retornando un mensaje:
-    public String deleteEmployee(int index){
-        EmployeesList.remove(index);
-        return "--> Empleado eliminado";
+    // Eliminar: Método que elimina un empleado de la base de datos. Retorna un mensaje:
+    public String deleteEmployee(Long id){
+        if(searchEmployee(id).isPresent()){
+            employeeRepository.deleteById(id);
+            return "--> Empleado eliminado con éxito!";
+        }else{
+            return "--> El empleado indicado no existe!";
+        }
     }
 
 }

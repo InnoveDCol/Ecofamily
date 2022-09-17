@@ -1,6 +1,7 @@
 package com.innovedcol.ecofamily.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Transaction")
@@ -11,35 +12,49 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(unique = true)
     private Long id;
+
     @Column(nullable = false)
     private String concept;
+
     @Column(nullable = false)
     private double amount;
+
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "Employee_ID",nullable = false)//Corregido.
     private Employee user;
+
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "Enterprise_ID",nullable = false)//Corregido.
     private Enterprise enterprise;
+
     @Column(nullable = false)
     private String type;
+
+    @Column (nullable = false)
+    private Date updatedAt;
+
+    @Column (nullable = false)
+    private Date createdAt;
 
     // Constructor vacio
     public Transaction() {
     }
 
     // Constructor completo
-    public Transaction(Long id, String concept, double amount, Employee user, Enterprise enterprise, String type) {
+
+    public Transaction(Long id, String concept, double amount, Employee user, Enterprise enterprise, String type, Date updatedAt, Date createdAt) {
         this.id = id;
         this.concept = concept;
         this.amount = amount;
         this.user = user;
         this.enterprise = enterprise;
         this.type = type;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
     }
 
-    // Getters and setters
 
+    // Getters and setters:
     public Long getId() {
         return id;
     }
@@ -88,6 +103,22 @@ public class Transaction {
         this.type = type;
     }
 
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -97,6 +128,9 @@ public class Transaction {
                 ", user=" + user +
                 ", enterprise=" + enterprise +
                 ", type='" + type + '\'' +
+                ", updatedAt=" + updatedAt +
+                ", createdAt=" + createdAt +
                 '}';
     }
+
 }
