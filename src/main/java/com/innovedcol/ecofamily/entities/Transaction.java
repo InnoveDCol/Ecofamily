@@ -23,12 +23,10 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "employee")//Corregido.
-    @JsonIgnore
     private Employee user;
 
     @ManyToOne
     @JoinColumn(name = "enterprise")//Corregido.
-    @JsonIgnore
     private Enterprise enterprise;
 
     @Enumerated(EnumType.STRING)

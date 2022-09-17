@@ -22,7 +22,7 @@ public class EnterpriseController {
     }
 
     // Método para llamar al servicio que retorna el arraylist de todos los empleados:
-    @GetMapping("/users")
+    @GetMapping("/enterprises")
     public ArrayList<Enterprise> EnterprisesList () {
         return this.enterpriseService.getEnterprisesList();
     }
@@ -30,25 +30,25 @@ public class EnterpriseController {
     //CRUD:
 
     // Buscar: Método para llamar al servicio que busca un empleado de acuerdo a su id:
-    @GetMapping("/user/{id}")
+    @GetMapping("/enterprise/{id}")
     public Optional<Enterprise> searchEnterprise(@PathVariable("id") Long id){
         return this.enterpriseService.searchEnterprise(id);
     }
 
     // Insertar: Método para llamar al servicio que crea un nuevo empleado:
-    @PostMapping("/users")
+    @PostMapping("/enterprises")
     public String createEnterprise (@RequestBody Enterprise e) {
         return this.enterpriseService.createEnterprise(e);
     }
 
     // Actualizar: Método para llamar al servicio que actualiza la información de un employee:
-    @PatchMapping("/user/{id}")
+    @PatchMapping("/enterprise/{id}")
     public String updateEnterprise(@PathVariable("id") Long id, @RequestBody Enterprise e) {
         return this.enterpriseService.updateEnterprise(id,e);
     }
 
     // Eliminar: Método para llamar al servicio que elimina un perfil:
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/enterprise/{id}")
     public String deleteEnterprise(@PathVariable("id") Long id) {
         return this.enterpriseService.deleteEnterprise(id); }
 

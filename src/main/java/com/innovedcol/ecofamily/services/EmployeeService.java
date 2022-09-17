@@ -1,7 +1,6 @@
 package com.innovedcol.ecofamily.services;
 
 import com.innovedcol.ecofamily.entities.Employee;
-import com.innovedcol.ecofamily.entities.Enterprise;
 import com.innovedcol.ecofamily.repositories.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,26 +12,12 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    /*
-    EnterpriseService enterprise;//Variable(Enterprise) de tipo EnterpriseService.
-    ArrayList<Employee> employeesList= new ArrayList<>();//Creamos el arraylist que contendrá los empleados.
-    */
-
     //MÉTODOS//
 
     //Constructor:
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
-
-    /*
-    // Datos iniciales:
-    public void initialData(){
-        // EmployeesList.add(new Employee("Matthew Zuñiga","juan@jzgdevelopers.com",Enterprise.searchEnterprise(2L),"Admin"));
-        // EmployeesList.add(new Employee("Alexander Carvajal","alexander@automantec.com",Enterprise.searchEnterprise(1L),"Operario"));
-        // EmployeesList.add(new Employee("Alejandra Moreano", "alejandra@ecofamily.com", Enterprise.searchEnterprise(0L),"Operario"));
-    }
-    */
 
     // Método que retorna el arraylist de todos los empleados:
     public ArrayList<Employee> getEmployeesList(){
