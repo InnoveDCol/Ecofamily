@@ -1,6 +1,10 @@
 package com.innovedcol.ecofamily.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -10,6 +14,7 @@ public class Enterprise {
     // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -24,34 +29,39 @@ public class Enterprise {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "enterpriseContratante")//Corregido.
-    @Column(name="employees")
-    private List<Employee> users;
+    @OneToMany(mappedBy="enterprise")
+    @Column(name="employees", nullable = true)
+    private List<Employee> employees;
 
-    @OneToMany(mappedBy = "enterprise")//Corregido.
-    @Column(nullable = true)
+    @OneToMany(mappedBy="enterprise")
+    @Column(name="transactions", nullable = true)
     private List<Transaction> transactions;
 
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
+    @CreationTimestamp // TODO Cambio realizado por taller del 17/09/22 Verificar si funciona o si hay que poner LocalDateTime
     @Column(nullable = false)
-    private Calendar createdAt;
+    //private Calendar createdAt;
+    private LocalDateTime createdAt;
 
-    @Temporal(TemporalType.DATE)
+
+    //@Temporal(TemporalType.DATE)
+    @UpdateTimestamp // TODO Cambio realizado por taller del 17/09/22 Verificar si funciona o si hay que poner LocalDateTime
     @Column(nullable = true)
-    private Calendar updatedAt;
+    //private Calendar updatedAt;
+    private LocalDateTime updatedAt;
 
     // Constructor vacio
     public Enterprise() {
     }
 
     // Constructor completo
-    public Enterprise(Long id, String name, String document, String phone, String address, List<Employee> users, List<Transaction> transactions, Calendar createdAt, Calendar updatedAt) {
+    public Enterprise(Long id, String name, String document, String phone, String address, List<Employee> employees, List<Transaction> transactions, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.document = document;
         this.phone = phone;
         this.address = address;
-        this.users = users;
+        this.employees = employees;
         this.transactions = transactions;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -99,12 +109,12 @@ public class Enterprise {
         this.address = address;
     }
 
-    public List<Employee> getUsers() {
-        return users;
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setUsers(List<Employee> listEmployees) {
-        this.users = listEmployees;
+    public void setEmployees(List<Employee> listEmployees) {
+        this.employees = listEmployees;
     }
 
     public List<Transaction> getTransactions() {
@@ -115,19 +125,19 @@ public class Enterprise {
         this.transactions = listTransactions;
     }
 
-    public Calendar getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Calendar createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Calendar getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Calendar updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -139,7 +149,7 @@ public class Enterprise {
                 ", document='" + document + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
-                ", users=" + users +
+                ", users=" + employees +
                 ", transactions=" + transactions +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

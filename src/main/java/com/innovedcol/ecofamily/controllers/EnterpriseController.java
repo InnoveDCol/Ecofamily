@@ -2,11 +2,11 @@ package com.innovedcol.ecofamily.controllers;
 
 import com.innovedcol.ecofamily.entities.Employee;
 import com.innovedcol.ecofamily.entities.Enterprise;
+import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.services.EnterpriseService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 @RestController
 public class EnterpriseController {
 
@@ -23,19 +23,30 @@ public class EnterpriseController {
 
     // Método para llamar al servicio que retorna el arraylist de todos los empleados:
     @GetMapping("/enterprises")
-    public ArrayList<Enterprise> EnterprisesList () {
+    public List<?> EnterprisesList () {
         return this.enterpriseService.getEnterprisesList();
     }
 
     //CRUD:
 
-    // Buscar: Método para llamar al servicio que busca un empleado de acuerdo a su id:
+    // Buscar: Método para llamar al servicio que busca una empresa de acuerdo a su id:
     @GetMapping("/enterprise/{id}")
     public Optional<Enterprise> searchEnterprise(@PathVariable("id") Long id){
         return this.enterpriseService.searchEnterprise(id);
     }
+    // Método para llamar al servicio que busca las transacciones de una empresa de acuerdo a su id:
+    @GetMapping("/enterprise/{id}/movements")
+    public List<?> searchTransactionsEnterprise(@PathVariable("id") Long id){
+        return this.enterpriseService.searchTransactionsEnterprise(id);
+    }
 
-    // Insertar: Método para llamar al servicio que crea un nuevo empleado:
+    // Método para llamar al servicio que busca las transacciones de una empresa de acuerdo a su id:
+    @GetMapping("/enterprise/{id}/users")
+    public List<?> searchEmployeesEnterprise(@PathVariable("id") Long id){
+        return this.enterpriseService.searchEmployeesEnterprise(id);
+    }
+
+    // Insertar: Método para llamar al servicio que crea una nueva empresa:
     @PostMapping("/enterprises")
     public String createEnterprise (@RequestBody Enterprise e) {
         return this.enterpriseService.createEnterprise(e);

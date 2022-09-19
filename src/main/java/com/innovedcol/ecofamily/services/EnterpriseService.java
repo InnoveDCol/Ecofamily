@@ -1,6 +1,8 @@
 package com.innovedcol.ecofamily.services;
 
+import com.innovedcol.ecofamily.entities.Employee;
 import com.innovedcol.ecofamily.entities.Enterprise;
+import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.repositories.EnterpriseRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,15 @@ public class EnterpriseService {
     }
 
     // Método que retorna un arraylist con el listado de las empresas:
-    public ArrayList<Enterprise> getEnterprisesList(){
-        return (ArrayList<Enterprise>) repository.findAll();
+    public List<?> getEnterprisesList(){
+        List<Enterprise> list = repository.findAll();
+        if (list.size() > 0){
+            return list;
+        }else{
+            return new ArrayList<String>() {{
+                add("No existen empresas");
+            }};
+        }
     }
 
     // Método que retorna un objeto de tipo Enterprise según su ID:
@@ -26,7 +35,44 @@ public class EnterpriseService {
         return repository.findById(id);
     }
 
+    // Método que retorna un objeto de tipo Transaction que hacen parte de una empresa:
+    public List<?> searchTransactionsEnterprise(Long id){
+        if(searchEnterprise(id).isPresent()){
+            List<Transaction> list = repository.findById(id).get().getTransactions();
+            if (list.size() > 0){
+                return list;
+            }else{
+                return new ArrayList<String>() {{
+                    add("Empresa sin transacciones");
+                }};
+            }
+        }else{
+            return new ArrayList<String>() {{
+                add("La empresa no existe!");
+            }};
+        }
+    }
+
+    // Método que retorna un objeto de tipo Employee que hacen parte de una empresa:
+    public List<?> searchEmployeesEnterprise(Long id){
+        if(searchEnterprise(id).isPresent()){
+            List<Employee> list = repository.findById(id).get().getEmployees();
+            if (list.size() > 0){
+                return list;
+            }else{
+                return new ArrayList<String>() {{
+                    add("Empresa sin empleados");
+                }};
+            }
+        }else{
+            return new ArrayList<String>() {{
+                add("La empresa no existe!");
+            }};
+        }
+    }
+
     // Método que crea una empresa y la añade a la base de datos. Retorna un mensaje
+    //TODO -> Validar que el nombre y el documento sean unicos
     public String createEnterprise(Enterprise e){
         if(searchEnterprise(e.getId()).isEmpty()){
             repository.save(e);

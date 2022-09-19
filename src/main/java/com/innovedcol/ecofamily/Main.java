@@ -116,9 +116,9 @@ public class Main {
         // Lectura del correo
         System.out.println("Correo del empleado: " + emp.getEmail());
         // Lectura de la empresa contratante
-        System.out.println("Enterprise contratante: " + emp.getEnterpriseContratante().getName());
+        System.out.println("Enterprise contratante: " + emp.getEnterprise().getName());
         // Lectura del rol
-        // System.out.println("Rol del empleado: " + emp.getRol());
+        // System.out.println("Rol del empleado: " + emp.getRole());
 
         //Prueba de los setters:
         System.out.println("----------------------------------------\n");
@@ -130,10 +130,10 @@ public class Main {
         emp.setEmail("cccc@gmail.com");
         System.out.println("Se cambió el correo...");
         // Modificacion de la empresa contratante
-        emp.setEnterpriseContratante(enterprisePpal);
+        emp.setEnterprise(enterprisePpal);
         System.out.println("Se cambió la empresa contratante...");
         // Modificacion del rol
-        // emp.setRol("Contador");
+        // emp.setRole("Contador");
         System.out.println("Se cambió el rol...");
         // Se imprimen los datos modificados del objeto emp
         System.out.println("\n*** Llamado al metodo toString() de la clase Employee con los datos modificados");

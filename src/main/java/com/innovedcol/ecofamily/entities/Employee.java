@@ -1,18 +1,22 @@
 package com.innovedcol.ecofamily.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.innovedcol.ecofamily.enums.RoleEmployeeEnum;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
+@JsonIgnoreProperties(value= {"enterprise"})
 @Table(name = "EMPLOYEES")
 public class Employee {
 
     @Id
-    //@Column (unique = true)
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private Long id;
 
     @Column (nullable = false, length = 50)
@@ -26,27 +30,26 @@ public class Employee {
 
     @Enumerated(EnumType.STRING)
     @Column (name="role", nullable = false)
-    private RoleEmployeeEnum rol;
+    private RoleEmployeeEnum role;
 
     @Column(nullable = false)
     private String image;
 
     @ManyToOne
     @JoinColumn(name = "enterprise")
-    @JsonIgnore
-    private Enterprise enterpriseContratante;
+    //@JsonIgnore
+    private Enterprise enterprise;
 
-    @OneToMany(mappedBy = "user")//Corregido.
-    @Column(name = "transactions")
-    private List<Transaction> transactionList;
+    @OneToMany(mappedBy= "employee")
+    private List<Transaction> transactions;
 
-    @Temporal(TemporalType.DATE)
+    @CreationTimestamp
     @Column (nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    @Temporal(TemporalType.DATE)
+    @UpdateTimestamp
     @Column (nullable = true)
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
     //MÉTODOS
 
     //Constructores:
@@ -54,15 +57,15 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Long id, String name, String email, String phone, RoleEmployeeEnum rol, String image, Enterprise enterpriseContratante, List<Transaction> transactionList, Date createdAt, Date updatedAt) {
+    public Employee(Long id, String name, String email, String phone, RoleEmployeeEnum role, String image, Enterprise enterprise, List<Transaction> transactions, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.rol = rol;
+        this.role = role;
         this.image = image;
-        this.enterpriseContratante = enterpriseContratante;
-        this.transactionList = transactionList;
+        this.enterprise = enterprise;
+        this.transactions = transactions;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -99,12 +102,12 @@ public class Employee {
         this.phone = phone;
     }
 
-    public RoleEmployeeEnum getRol() {
-        return rol;
+    public RoleEmployeeEnum getRole() {
+        return role;
     }
 
-    public void setRol(RoleEmployeeEnum rol) {
-        this.rol = rol;
+    public void setRole(RoleEmployeeEnum rol) {
+        this.role = rol;
     }
 
     public String getImage() {
@@ -115,35 +118,35 @@ public class Employee {
         this.image = image;
     }
 
-    public Enterprise getEnterpriseContratante() {
-        return enterpriseContratante;
+    public Enterprise getEnterprise() {
+        return enterprise;
     }
 
-    public void setEnterpriseContratante(Enterprise enterpriseContratante) {
-        this.enterpriseContratante = enterpriseContratante;
+    public void setEnterprise(Enterprise enterpriseContratante) {
+        this.enterprise = enterpriseContratante;
     }
 
-    public List<Transaction> getTransactionList() {
-        return transactionList;
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setTransactionList(List<Transaction> transactionList) {
-        this.transactionList = transactionList;
+    public void setTransactions(List<Transaction> transactionList) {
+        this.transactions = transactionList;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -154,10 +157,10 @@ public class Employee {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", rol=" + rol +
+                ", rol=" + role +
                 ", image='" + image + '\'' +
-                ", enterpriseContratante=" + enterpriseContratante +
-                ", transactionList=" + transactionList +
+                ", enterpriseContratante=" + enterprise +
+                ", transactionList=" + transactions +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
