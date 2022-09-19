@@ -37,17 +37,12 @@ public class Enterprise {
     @Column(name="transactions", nullable = true)
     private List<Transaction> transactions;
 
-    //@Temporal(TemporalType.DATE)
-    @CreationTimestamp // TODO Cambio realizado por taller del 17/09/22 Verificar si funciona o si hay que poner LocalDateTime
+    @CreationTimestamp
     @Column(nullable = false)
-    //private Calendar createdAt;
     private LocalDateTime createdAt;
 
-
-    //@Temporal(TemporalType.DATE)
-    @UpdateTimestamp // TODO Cambio realizado por taller del 17/09/22 Verificar si funciona o si hay que poner LocalDateTime
+    @UpdateTimestamp
     @Column(nullable = true)
-    //private Calendar updatedAt;
     private LocalDateTime updatedAt;
 
     // Constructor vacio

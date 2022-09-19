@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
-
 @Service
 public class TransactionService {
 
@@ -51,21 +49,12 @@ public class TransactionService {
     }
 
     // Método que crea una transacción y la añade a la base de datos. Retorna un mensaje
-    /*public String createTransaction(Transaction t){
-        if(searchTransaction(t.getId()).isEmpty()){
-            transactionRepository.save(t);
-            return "--> Transacción creada con éxito!";
-        }else{
-            return "--> Transacción ya existe!";
-        }
-    }*/
     public String createTransaction(Long user_id, Long enterprise_id, Transaction t){
-
         if(enterpriseService.searchEnterprise(enterprise_id).isPresent()){
             if(employeeService.searchEmployee(user_id).isPresent()) {
                 List<Employee> list = enterpriseRepository.findById(enterprise_id).get().getEmployees();
                 for (Employee emp : list) {
-                    if (emp.getId() == user_id) {
+                    if (Objects.equals(emp.getId(), user_id)) {
                         try{
                             employeeRepository.findById(user_id).map(usr -> {
                                 t.setEmployee(usr);
@@ -89,7 +78,7 @@ public class TransactionService {
             return "La empresa ingresada no existe!";
         }
 
-        return "--> El empleado ingresado no hace parte de la empresa indicada!";
+    return "--> El empleado ingresado no hace parte de la empresa indicada!";
     }
 
     // Método que actualiza la información de una transacción según su id. Retorna un mensaje

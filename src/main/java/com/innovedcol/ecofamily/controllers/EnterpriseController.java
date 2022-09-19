@@ -1,8 +1,6 @@
 package com.innovedcol.ecofamily.controllers;
 
-import com.innovedcol.ecofamily.entities.Employee;
 import com.innovedcol.ecofamily.entities.Enterprise;
-import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.services.EnterpriseService;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +9,7 @@ import java.util.*;
 public class EnterpriseController {
 
     //ATRIBUTOS
-
-    private EnterpriseService enterpriseService;
+    private final EnterpriseService enterpriseService;
 
     //MÉTODOS
 
@@ -40,7 +37,7 @@ public class EnterpriseController {
         return this.enterpriseService.searchTransactionsEnterprise(id);
     }
 
-    // Método para llamar al servicio que busca las transacciones de una empresa de acuerdo a su id:
+    // Método para llamar al servicio que busca los empleados de una empresa de acuerdo a su id:
     @GetMapping("/enterprise/{id}/users")
     public List<?> searchEmployeesEnterprise(@PathVariable("id") Long id){
         return this.enterpriseService.searchEmployeesEnterprise(id);
@@ -52,13 +49,13 @@ public class EnterpriseController {
         return this.enterpriseService.createEnterprise(e);
     }
 
-    // Actualizar: Método para llamar al servicio que actualiza la información de un employee:
+    // Actualizar: Método para llamar al servicio que actualiza la información de una empresa:
     @PatchMapping("/enterprise/{id}")
     public String updateEnterprise(@PathVariable("id") Long id, @RequestBody Enterprise e) {
         return this.enterpriseService.updateEnterprise(id,e);
     }
 
-    // Eliminar: Método para llamar al servicio que elimina un perfil:
+    // Eliminar: Método para llamar al servicio que elimina una empresa:
     @DeleteMapping("/enterprise/{id}")
     public String deleteEnterprise(@PathVariable("id") Long id) {
         return this.enterpriseService.deleteEnterprise(id); }

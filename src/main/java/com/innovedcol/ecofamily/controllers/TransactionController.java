@@ -20,13 +20,6 @@ public class TransactionController {
         return this.service.getTransactionsList();
     }
 
-    /*
-    @PostMapping("/movements")
-
-    public String createTransaction(@RequestBody Transaction t){
-        return this.service.createTransaction(t);
-    }
-    */
     @PostMapping("/movements/{usr_id}/{ent_id}")
     public String createTransaction(@PathVariable("usr_id") Long usr_id, @PathVariable("ent_id") Long ent_id, @RequestBody Transaction t){
         return this.service.createTransaction(usr_id, ent_id,t);
@@ -46,6 +39,5 @@ public class TransactionController {
     public String deleteTransaction(@PathVariable ("id") Long id) {
         return this.service.deleteTransaction(id);
     }
-
 
 }

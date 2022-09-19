@@ -57,17 +57,7 @@ public class EmployeeService {
             }});
         }
     }
-    /*
-    // Insertar: Método que crea un empleado y la añade a la base de datos. Retorna un mensaje:
-    public String createEmployee(Employee emp){
-        if(searchEmployee(emp.getId()).isEmpty()){
-            employeeRepository.save(emp);
-            return "--> Empleado creado con éxito!";
-        }else{
-            return "--> El empleado ya existe!";
-        }
-    }
-    */
+
     public String createEmployee(Long enterprise_id, Employee e) {
 
         if(searchEmployee(e.getId()).isEmpty()) {
@@ -88,25 +78,6 @@ public class EmployeeService {
             return "--> El empleado ya existe!";
         }
     }
-
-
-    /*
-    public Employee createEmployee(Long enterprise_id, Employee e) {
-
-        if(searchEmployee(e.getId()).isEmpty()) {
-            if(enterpriseService.searchEnterprise(enterprise_id).isPresent()){
-                return enterpriseRepository.findById(enterprise_id).map(ent -> {
-                    e.setEnterprise(ent);
-                    return employeeRepository.save(e);
-                }).get();
-            }else {
-                return new Employee();
-            }
-        }else {
-            return new Employee();
-        }
-    }
-    */
 
     // Actualizar: Método que actualiza la información de un empleado según su id. Retorna un mensaje:
     public String updateEmployee(Long id, Employee emp){
@@ -137,5 +108,4 @@ public class EmployeeService {
             return "--> El empleado indicado no existe!";
         }
     }
-
 }

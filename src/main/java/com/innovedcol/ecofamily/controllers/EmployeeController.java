@@ -1,7 +1,6 @@
 package com.innovedcol.ecofamily.controllers;
 
 import com.innovedcol.ecofamily.entities.Employee;
-import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +11,7 @@ public class EmployeeController {
 
     // ATRIBUTOS
     // Objeto de tipo EmployeeService.
-    private EmployeeService service;
+    private final EmployeeService service;
 
     // CONSTRUCTOR
     public EmployeeController(EmployeeService employeeService) { this.service = employeeService; }
@@ -22,14 +21,6 @@ public class EmployeeController {
     public List<?> EmployeeList () {
         return this.service.getEmployeesList();
     }
-
-    /*
-    // Método para llamar al servicio que crea un nuevo empleado:
-    @PostMapping("/users")
-    public String createEmployee (@RequestBody Employee e) {
-        return this.service.createEmployee(e);
-    }
-    */
 
     // Método para llamar al servicio que crea un nuevo empleado en una empresa establecida
     @PostMapping("/users/{ent_id}")

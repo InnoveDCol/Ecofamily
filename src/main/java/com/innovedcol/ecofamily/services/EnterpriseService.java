@@ -72,7 +72,7 @@ public class EnterpriseService {
     }
 
     // Método que crea una empresa y la añade a la base de datos. Retorna un mensaje
-    //TODO -> Validar que el nombre y el documento sean unicos
+    //TODO -> Validar que el nombre y el documento sean unicos (Guiarse de lo hecho en empleado)
     public String createEnterprise(Enterprise e){
         if(searchEnterprise(e.getId()).isEmpty()){
             repository.save(e);
@@ -101,5 +101,4 @@ public class EnterpriseService {
             return "--> La empresa indicada no existe!";
         }
     }
-
 }
