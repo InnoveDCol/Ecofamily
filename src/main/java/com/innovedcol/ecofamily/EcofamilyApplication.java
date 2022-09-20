@@ -11,5 +11,4 @@ public class EcofamilyApplication {
 		SpringApplication.run(EcofamilyApplication.class, args);
 
 	}
-
 }

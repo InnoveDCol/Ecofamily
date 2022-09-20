@@ -7,6 +7,7 @@ import com.innovedcol.ecofamily.repositories.EnterpriseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -96,7 +97,17 @@ public class EnterpriseService {
     }
     // Método que actualiza la información de una empresa según su id. Retorna un mensaje
     public String updateEnterprise(Long id, Enterprise e){
+        List<Employee> empleadosActuales;
+        List<Transaction> transaccionesActuales;
+        LocalDateTime fechaCreacionActual;
+
         if(searchEnterprise(id).isPresent()){
+            empleadosActuales = searchEnterprise(id).get().getEmployees();
+            transaccionesActuales = searchEnterprise(id).get().getTransactions();
+            fechaCreacionActual = searchEnterprise(id).get().getCreatedAt();
+            e.setEmployees(empleadosActuales);
+            e.setCreatedAt(fechaCreacionActual);
+            e.setTransactions(transaccionesActuales);
             repository.save(e);
             return "--> Empresa actualizada con éxito!";
         }else{
