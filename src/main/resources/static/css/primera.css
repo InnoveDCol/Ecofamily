@@ -1,0 +1,55 @@
+.contenedora-principal{
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+}
+
+.contenedora-izquierda{
+    background-color: #00386f;
+    width: 300px;
+    margin: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+figure {
+    background-color: white;
+}
+
+.estilo1{
+    background-color: white;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    font-size:x-large;
+    height: 30px;
+    width: 250px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.contenedora-derecha{
+    background-color:#E0F2F6;
+    font-weight: bold;
+    height: 570px;
+    width: 835px;
+    margin: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.estilo2{
+    background-color: white;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    font-size:xx-large;
+    height: 120px;
+    width: 267px;
+    margin: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
