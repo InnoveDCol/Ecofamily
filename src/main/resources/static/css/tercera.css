@@ -1,0 +1,98 @@
+.contenedora-principal{
+    display: flex;
+    justify-content: space-around;
+    background-color:white;
+}
+
+.contenedora-izquierda{
+    background-color:#00386f;
+    font-weight: bold;
+    height: 570px;
+    width: 300px;
+    margin: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+figure {
+    background-color: white;
+}
+
+.estilo1{
+    background-color: white;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    font-size:x-large;
+    height: 30px;
+    width: 250px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.contenedora-derecha{
+    background-color:#E0F2F6;
+    font-weight: bold;
+    height: 570px;
+    width: 835px;
+    margin: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.formulario{
+    background-color: white;
+    width: 450px;
+    margin: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-evenly ;
+    align-items: left;
+    flex-direction: column;
+}
+
+h1{
+    font-family: "Times New Roman", Times, serif;
+    font-size: xx-large;
+    text-align: center;
+    padding: 5px;
+}
+
+h2{
+    font-size: x-large;
+    text-align: center;
+}
+
+h3{
+    font-size: large;
+}
+
+h4{
+    font-size: x-large;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.formulario button{
+    background-color: lightgray;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    border: none;
+    font-size:x-large;
+    border-radius: 5px;
+}
+
+.caja1{
+    background-color: white;
+    height: 345px;
+    margin: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: left;
+    flex-direction: column;
+}
