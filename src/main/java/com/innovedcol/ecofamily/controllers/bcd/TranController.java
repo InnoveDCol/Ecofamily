@@ -1,15 +1,17 @@
-package com.innovedcol.ecofamily.controllers;
+package com.innovedcol.ecofamily.controllers.bcd;
 
 import com.innovedcol.ecofamily.entities.Transaction;
-import com.innovedcol.ecofamily.services.TransactionService;
+import com.innovedcol.ecofamily.services.backend.TransactionService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/api")
 @AllArgsConstructor
-public class TransactionController {
+public class TranController {
 
     private final TransactionService service;
 

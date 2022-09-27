@@ -1,21 +1,24 @@
 package com.innovedcol.ecofamily.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.innovedcol.ecofamily.enums.RoleEmployeeEnum;
-import lombok.*;
+import com.innovedcol.ecofamily.enums.EnumRoleEmployee;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+//@ToString
 @JsonIgnoreProperties(value= {"enterprise"})
 @Table(name = "EMPLOYEES")
 public class Employee {
@@ -36,7 +39,7 @@ public class Employee {
 
     @Enumerated(EnumType.STRING)
     @Column (name="role", nullable = false)
-    private RoleEmployeeEnum role;
+    private EnumRoleEmployee role;
 
     @Column(nullable = false)
     private String image;
@@ -45,7 +48,7 @@ public class Employee {
     @JoinColumn(name = "enterprise")
     private Enterprise enterprise;
 
-    @OneToMany(mappedBy= "employee")
+    @OneToMany(mappedBy= "employee",cascade = CascadeType.ALL)
     private List<Transaction> transactions;
 
     @CreationTimestamp

@@ -1,18 +1,18 @@
-package com.innovedcol.ecofamily.controllers;
+package com.innovedcol.ecofamily.controllers.bcd;
 
 import com.innovedcol.ecofamily.entities.Employee;
-import com.innovedcol.ecofamily.services.EmployeeService;
+import com.innovedcol.ecofamily.services.backend.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 @RestController
+@RequestMapping("/api")
 @AllArgsConstructor
-public class EmployeeController {
+public class EmpController {
 
     // ATRIBUTOS
-    // Objeto de tipo EmployeeService.
     private final EmployeeService service;
 
     // Método para llamar al servicio que retorna el arraylist de todos los empleados:
@@ -23,7 +23,7 @@ public class EmployeeController {
 
     // Método para llamar al servicio que crea un nuevo empleado en una empresa establecida
     @PostMapping("/users/{ent_id}")
-    public String createEmployee(@PathVariable("ent_id") Long ent_id,@RequestBody Employee e) {
+    public String createEmployee(@PathVariable("ent_id") Long ent_id, @RequestBody Employee e) {
         return this.service.createEmployee(ent_id, e);
     }
 

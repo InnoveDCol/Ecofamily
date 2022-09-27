@@ -1,14 +1,16 @@
-package com.innovedcol.ecofamily.controllers;
+package com.innovedcol.ecofamily.controllers.bcd;
 
 import com.innovedcol.ecofamily.entities.Enterprise;
-import com.innovedcol.ecofamily.services.EnterpriseService;
+import com.innovedcol.ecofamily.services.backend.EnterpriseService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 @RestController
+@RequestMapping("/api")
 @AllArgsConstructor
-public class EnterpriseController {
+public class EntController {
 
     //ATRIBUTOS
     private final EnterpriseService enterpriseService;

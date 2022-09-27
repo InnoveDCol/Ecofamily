@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Usuarios </title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/general/favicon.png}"/>
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container-fluid text-center">
+        <div class="row g-0 text-center" >
+            <div class="row container-fluid col-md-8 mx-auto justify-content-center ">
+                <img th:src="@{/images/general/logo_ecofamily.png}" src="" class="img-thumbnail my-3 w-25 border border-0" alt="Ecofamily" />
+                <h1 class="display-1 mb-4 text-primary fw-bold">Usuarios</h1>
+            </div>
+        </div>
+
+        <div class="row g-0 text-center" >
+            <div class="col container-fluid col-md-2 mx-auto my-auto justify-content-center border border-dark border-2">
+                <div class="d-grid gap-2 justify-content-center col-5 my-auto mx-auto" >
+                    <a th:href="@{/}" class="btn btn-success mt-3 my-2 btn-lg" role="button">Inicio</a>
+                    <a th:href="@{/transactions}" class="btn btn-primary my-2 btn-lg" role="button">Transacciones</a>
+                    <a th:href="@{/enterprise}" class="btn btn-primary mb-3 my-2 btn-lg" role="button">Empresa</a>
+                </div>
+            </div>
+            <div class="row container-fluid col-md-9 mx-auto my-auto justify-content-center border border-success border-2">
+                <table class="table table-hover border border-dark border-1 my-auto mt-2 mb-2" th:if="${hayEmpleados==true}">
+                    <thead class="table-dark">
+                    <tr>
+                        <th scope="col" class="d-none">id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Transacciones</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="empleado:${listaEmpleados}">
+                            <th scope="row" th:text="${empleado.id}" class="d-none"></th>
+                            <td th:text="${empleado.name}"></td>
+                            <td th:text="${empleado.email}"></td>
+                            <td th:text="${empleado.phone}"></td>
+                            <td th:text="${empleado.role}"></td>
+                            <td><a role="button" th:href="@{/user/{id}/movements (id=${empleado.id})}">[Ver listado]</a></td>
+                            <td><a role="button" th:href="@{/user/update/{id}(id=${empleado.id})}" th:title="'Modificar '+${empleado.name}">✏</a></td> <!-- TODO: Falta implementar-->
+                            <td><a role="button" th:title="'Eliminar '+${empleado.name}" data-bs-toggle="modal" th:attr="data-bs-target=${'#staticBackdrop'+empleado.id}" data-row="${empleado}">❌</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/user/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nuevo usuario</a>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" th:each="empleado : ${listaEmpleados}" th:attr="id=${'staticBackdrop' + empleado.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Eliminar empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" th:text="'¿Realmente desea eliminar el empleado '+${empleado.name}+'?'"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <a role="button" class="btn btn-primary" th:href="@{/user/delete/{id}(id=${empleado.id})}">Si</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

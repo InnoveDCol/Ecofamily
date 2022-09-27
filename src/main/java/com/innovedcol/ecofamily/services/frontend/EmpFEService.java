@@ -1,19 +1,22 @@
-package com.innovedcol.ecofamily.services;
+package com.innovedcol.ecofamily.services.frontend;
 
 import com.innovedcol.ecofamily.entities.Employee;
 import com.innovedcol.ecofamily.entities.Enterprise;
 import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.repositories.EmployeeRepository;
 import com.innovedcol.ecofamily.repositories.EnterpriseRepository;
+import com.innovedcol.ecofamily.services.backend.EnterpriseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class EmployeeService {
+public class EmpFEService {
 
     private final EmployeeRepository employeeRepository;
     private final EnterpriseRepository enterpriseRepository;
@@ -41,13 +44,14 @@ public class EmployeeService {
     }
 
     // Método que retorna un objeto de tipo Transaction que hacen parte de una empresa:
-    public List<Object> searchTransactionsEmployee(Long id){
-        if(searchEmployee(id).isPresent()){
-            return List.of(employeeRepository.findById(id).get().getTransactions());
+    public List<?> searchTransactionsEmployee(Long id){
+    List<Transaction> list = employeeRepository.findById(id).get().getTransactions();
+        if (list.size() > 0){
+            return list;
         }else{
-            return List.of(new ArrayList<String>() {{
+            return new ArrayList<String>() {{
                 add("Empleado no existe");
-            }});
+            }};
         }
     }
 

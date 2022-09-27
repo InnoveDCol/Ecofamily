@@ -1,19 +1,22 @@
 package com.innovedcol.ecofamily.entities;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+//@ToString
 @Table(name = "ENTERPRISES")
 public class Enterprise {
 
@@ -35,11 +38,11 @@ public class Enterprise {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy="enterprise")
+    @OneToMany(mappedBy="enterprise", cascade = CascadeType.ALL)
     @Column(name="employees", nullable = true)
     private List<Employee> employees;
 
-    @OneToMany(mappedBy="enterprise")
+    @OneToMany(mappedBy="enterprise", cascade = CascadeType.ALL)
     @Column(name="transactions", nullable = true)
     private List<Transaction> transactions;
 
