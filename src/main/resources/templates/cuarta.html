@@ -33,61 +33,14 @@
           <th> </th>
         </tr>
 
-        <tr>
-          <td>Ejemplo1</td>
-          <td>Ejemplo2</td>
-          <td>Ejemplo3</td>
+        <tr th:each=usuario:${users}>
+          <td th:text="${usuario.name}"></td>
+          <td th:text="${usuario.email}"></td>
+          <td th:text="${usuario.phone}"></td>
           <td>Ejemplo4</td>
         </tr>
 
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
 
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
 
       </table>
 

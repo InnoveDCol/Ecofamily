@@ -15,7 +15,7 @@
       <figure>
         <img src="/static/imgs/innovedcol.png" alt="Logo" width="280px">
       </figure>
-      <button class="estilo1">Ingresos y Egresos</button>
+      <a th:href="@{/Transaction}"><button class="estilo1">Ingresos y Egresos</button></a>
       <button class="estilo1">Usuarios</button>
       <button class="estilo1">Empresas</button>
     </section>
@@ -33,61 +33,14 @@
           <th>Usuario</th>
         </tr>
 
-        <tr>
-          <td>Ejemplo1</td>
-          <td>Ejemplo2</td>
-          <td>Ejemplo3</td>
-          <td>Ejemplo4</td>
+        <tr th:each=transacciones:${Transacciones}>
+          <td th:text="${transacciones.id}"></td>
+          <td th:text="${transacciones.concept}"></td>
+          <td th:text="${transacciones.amount}"></td>
+          <td th:text="${transacciones.employee}"></td>
+          <td th:text="${transacciones.enterprise}"></td>
         </tr>
 
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
 
       </table>
       <br />

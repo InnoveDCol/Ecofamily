@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Innoved Col</title>
@@ -9,24 +9,24 @@
 <div style="text-align: center;"><img src="./imgs/innovedcol.png" width="40%" alt="Innoved Col" ></div>
 <br>
 <p class="botones">
-    <button class="learn-more" onclick="location.href='./enterprises'">
+    <a role="button" class="learn-more" th:href="@{/empresa}">
   <span class="circle" aria-hidden="true">
   <span class="icon arrow"></span>
   </span>
         <span class="button-text">Empresas</span>
-    </button>
-    <button class="learn-more" onclick="location.href='./users'">
+    </a>
+    <a role="button" class="learn-more" th:href="@{/usuario}">
   <span class="circle" aria-hidden="true">
   <span class="icon arrow"></span>
   </span>
         <span class="button-text">Empleados</span>
-    </button>
-    <button class="learn-more" onclick="location.href='./movements'">
+    </a>
+    <a role="button" class="learn-more" th:href="@{/transacciones}">
   <span class="circle" aria-hidden="true">
   <span class="icon arrow"></span>
   </span>
         <span class="button-text">Transacciones</span>
-    </button>
+    </a>
 
 </p>
 </body>

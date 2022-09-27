@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api")
+
 public class EmployeeController {
 
     // ATRIBUTOS

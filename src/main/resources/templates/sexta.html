@@ -33,61 +33,15 @@
           <th> </th>
         </tr>
 
-        <tr>
-          <td>Ejemplo1</td>
-          <td>Ejemplo2</td>
-          <td>Ejemplo3</td>
-          <td>Ejemplo4</td>
+        <tr th:each=empresa:${Enterprise}>>
+          <td th:text="${empresa.name}"></td>
+          <td th:text="${empresa.document}"></td>
+          <td th:text="${empresa.phone}"></td>
+          <td th:text="${empresa.address}"></td>
         </tr>
 
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
 
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
 
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
-
-        <tr>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-          <td> </td>
-        </tr>
 
       </table>
 
