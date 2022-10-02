@@ -27,6 +27,14 @@ public class GnrlFEController {
             model.addAttribute("emailUser", currentUser.getEmail());
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", currentUser.getRole().toString());
+            model.addAttribute("phoneUser", currentUser.getPhone());
+            if (currentUser.getEnterprise()!=null){
+                model.addAttribute("idEntUser", currentUser.getEnterprise().getId());
+            }else{
+                model.addAttribute("idEntUser", null);
+            }
+            model.addAttribute("enterpriseUser", currentUser.getEnterprise());
+
         }
         return "index";
     }

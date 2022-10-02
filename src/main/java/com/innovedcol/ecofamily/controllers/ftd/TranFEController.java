@@ -72,6 +72,8 @@ public class TranFEController {
             model.addAttribute("emailUser", currentUser.getEmail());
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", roleActual);
+            model.addAttribute("phoneUser", currentUser.getPhone());
+            model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
             return "transactions";
         }else{
@@ -116,7 +118,13 @@ public class TranFEController {
             model.addAttribute("emailUser", currentUser.getEmail());
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", roleActual);
-            model.addAttribute("idEntUser", currentUser.getEnterprise().getId());
+            if (currentUser.getEnterprise()!=null){
+                model.addAttribute("idEntUser", currentUser.getEnterprise().getId());
+            }else{
+                model.addAttribute("idEntUser", null);
+            }
+            model.addAttribute("phoneUser", currentUser.getPhone());
+            model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
             return "new_transaction";
         }else{

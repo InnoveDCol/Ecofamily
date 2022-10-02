@@ -27,7 +27,6 @@ private final EmpFEService employeeService;
 
             List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
             if (listaEmpresas.size()==1 && listaEmpresas.get(0).toString().equals("No existen empresas")){
-                //attributes.addFlashAttribute("hayEmpresas",true);
                 model.addAttribute("hayEmpresas",false);
             }else {
                 model.addAttribute("hayEmpresas",true);
@@ -40,6 +39,13 @@ private final EmpFEService employeeService;
             model.addAttribute("emailUser", currentUser.getEmail());
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", roleActual);
+            model.addAttribute("phoneUser", currentUser.getPhone());
+            if (currentUser.getEnterprise()!=null){
+                model.addAttribute("idEntUser", currentUser.getEnterprise().getId());
+            }else{
+                model.addAttribute("idEntUser", null);
+            }
+            model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
             if (roleActual.equals("Admin")){
                 return "enterprises";
@@ -68,9 +74,15 @@ private final EmpFEService employeeService;
             String roleActual = currentUser.getRole().toString();
             model.addAttribute("nameUser", currentUser.getName());
             model.addAttribute("emailUser", currentUser.getEmail());
-            model.addAttribute("phoneUser", currentUser.getPhone());
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", roleActual);
+            model.addAttribute("phoneUser", currentUser.getPhone());
+            if (currentUser.getEnterprise()!=null){
+                model.addAttribute("idEntUser", currentUser.getEnterprise().getId());
+            }else{
+                model.addAttribute("idEntUser", null);
+            }
+            model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
             if (roleActual.equals("Admin")){
                 return "new_enterprise";

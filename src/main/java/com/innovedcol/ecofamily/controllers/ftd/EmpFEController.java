@@ -32,6 +32,13 @@ public class EmpFEController {
         if (principal != null){
 
             List<?> listaEmpleados = this.employeeService.getEmployeesList();
+            List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
+
+            if (listaEmpresas.size()==1 && listaEmpresas.get(0).toString().equals("No existen empresas")){
+                model.addAttribute("hayEmpresas",false);
+            }else {
+                model.addAttribute("hayEmpresas",true);
+            }
 
             if (listaEmpleados.size()==1 && listaEmpleados.get(0).toString().equals("No existen empleados")){
                 model.addAttribute("hayEmpleados",false);
@@ -46,6 +53,8 @@ public class EmpFEController {
             model.addAttribute("emailUser", currentUser.getEmail());
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", roleActual);
+            model.addAttribute("phoneUser", currentUser.getPhone());
+            model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
             return "users";
         }else{
@@ -76,6 +85,13 @@ public class EmpFEController {
             model.addAttribute("emailUser", currentUser.getEmail());
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", roleActual);
+            model.addAttribute("phoneUser", currentUser.getPhone());
+            if (currentUser.getEnterprise()!=null){
+                model.addAttribute("idEntUser", currentUser.getEnterprise().getId());
+            }else{
+                model.addAttribute("idEntUser", null);
+            }
+            model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
             if (roleActual.equals("Admin")){
                 return "new_user";
@@ -134,6 +150,8 @@ public class EmpFEController {
             model.addAttribute("emailUser", currentUser.getEmail());
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", roleActual);
+            model.addAttribute("phoneUser", currentUser.getPhone());
+            model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
             return "user_transactions";
         }else{

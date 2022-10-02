@@ -25,6 +25,9 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${nameUser}+' ('+${roleUser}+')'">
                             Nombre de usuario (Rol)
                         </a>
+                        <span th:if="${phoneUser==null || enterpriseUser==null}" class="navbar-text text-danger">
+                              <strong>*** Perfil incompleto ***</strong>
+                        </span>
                         <ul class="dropdown-menu">
                             <li>
                                 <form th:action="@{/logout}" method="post">
@@ -46,12 +49,12 @@
         </div>
         <div class="row g-0 text-center" >
             <div class="row container-fluid col-md-8 mx-auto justify-content-center border border-success">
-                <div class="col-sm-3 my-3" sec:authorize="isAuthenticated()">
+                <div class="col-sm-3 my-3" sec:authorize="isAuthenticated()" th:if="${roleUser=='Admin'}">
                     <div class="card">
-                        <img th:src="@{/images/home/transactions_setup.gif}" src="" class="card-img-top" alt="Transacciones" />
+                        <img th:src="@{/images/home/enterprises_setup.gif}" src="" class="card-img-top" alt="Empresa" />
                         <div class="card-body">
-                            <h5 class="card-title mb-4">Gestíón de transacciones</h5>
-                            <a th:href="@{/transactions}" class="btn btn-primary">Ingresar</a>
+                            <h5 class="card-title mb-4">Gestíon de la empresa</h5>
+                            <a th:href="@{/enterprise}" class="btn btn-primary">Ingresar</a>
                         </div>
                     </div>
                 </div>
@@ -64,12 +67,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3 my-3" sec:authorize="isAuthenticated()" th:if="${roleUser=='Admin'}">
+                <div class="col-sm-3 my-3" sec:authorize="isAuthenticated()">
                     <div class="card">
-                        <img th:src="@{/images/home/enterprises_setup.gif}" src="" class="card-img-top" alt="Empresa" />
+                        <img th:src="@{/images/home/transactions_setup.gif}" src="" class="card-img-top" alt="Transacciones" />
                         <div class="card-body">
-                            <h5 class="card-title mb-4">Gestíon de la empresa</h5>
-                            <a th:href="@{/enterprise}" class="btn btn-primary">Ingresar</a>
+                            <h5 class="card-title mb-4">Gestíón de transacciones</h5>
+                            <a th:href="@{/transactions}" class="btn btn-primary">Ingresar</a>
                         </div>
                     </div>
                 </div>

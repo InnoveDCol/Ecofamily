@@ -24,6 +24,9 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${nameUser}+' ('+${roleUser}+')'">
                             Nombre de usuario (Rol)
                         </a>
+                        <span th:if="${phoneUser==null || enterpriseUser==null}" class="navbar-text text-danger">
+                              <strong>*** Perfil incompleto ***</strong>
+                        </span>
                         <ul class="dropdown-menu">
                             <li>
                                 <form th:action="@{/logout}" method="post">
@@ -67,7 +70,7 @@
                         <th scope="col" th:if="${roleUser=='Admin'}">Creado</th>
                         <th scope="col" th:if="${roleUser=='Admin'}">Actualizado</th>
                         <th scope="col"></th>
-                        <th scope="col" th:if="${roleUser=='Admin'}" ></th>
+                        <th scope="col" th:if="${roleUser=='Admin' && hayEmpresas==true}" ></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -80,12 +83,19 @@
                             <td><a role="button" th:href="@{/user/{id}/movements (id=${empleado.id})}">[Ver listado]</a></td>
                             <td th:text="${empleado.createdAt}" th:if="${roleUser=='Admin'}"></td>
                             <td th:text="${empleado.updatedAt}" th:if="${roleUser=='Admin'}"></td>
-                            <td><a role="button" th:href="@{/user/update/{id}(id=${empleado.id})}" th:title="'Modificar '+${empleado.name}">✏</a></td> <!-- TODO: Falta implementar-->
+                            <td th:if="${roleUser=='Admin' && hayEmpresas==true}"><a role="button" th:href="@{/user/update/{id}(id=${empleado.id})}" th:title="'Modificar '+${empleado.name}">✏</a></td> <!-- TODO: Falta implementar-->
                             <td th:if="${roleUser=='Admin'}" ><a role="button" th:title="'Eliminar '+${empleado.name}" data-bs-toggle="modal" th:attr="data-bs-target=${'#staticBackdrop'+empleado.id}" data-row="${empleado}">❌</a></td>
                         </tr>
                     </tbody>
                 </table>
-                <a th:if="${roleUser=='Admin'}" th:href="@{/user/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nuevo usuario</a>
+                <div th:if="${hayEmpresas==true && enterpriseUser==null}" class="alert alert-danger mt-3" role="alert">
+                    <strong>Debe asociar su usuario a la empresa</strong>
+                </div>
+                <div th:if="${hayEmpresas==false}" class="alert alert-danger mt-3" role="alert">
+                    <strong>Primero debe registrar la empresa!</strong>
+                </div>
+                <a th:if="${roleUser=='Admin' && hayEmpresas==true && enterpriseUser!=null}" th:href="@{/user/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nuevo usuario</a>
+                <!--a th:if="${roleUser=='Admin'}" th:href="@{/user/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nuevo usuario</a-->
             </div>
 
             <!-- Si no es un usuario Admin -->

@@ -24,6 +24,9 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${nameUser}+' ('+${roleUser}+')'">
                             Nombre de usuario (Rol)
                         </a>
+                        <span th:if="${phoneUser==null || enterpriseUser==null}" class="navbar-text text-danger">
+                              <strong>*** Perfil incompleto ***</strong>
+                        </span>
                         <ul class="dropdown-menu">
                             <li>
                                 <form th:action="@{/logout}" method="post">
@@ -84,13 +87,22 @@
                         </tr>
                     </tbody>
                 </table>
-                <div th:if="${hayEmpresas==false || hayUsuarios==false}" class="alert alert-danger mt-3" role="alert">
-                    <strong>Primero debe registrar una empresa y por lo menos un usuario</strong>
+                <div th:if="${hayEmpresas==true && enterpriseUser==null}" class="alert alert-danger mt-3" role="alert">
+                    <strong>Debe asociar su usuario a la empresa</strong>
+                </div>
+                <div th:if="${hayEmpresas==false && hayUsuarios==true}" class="alert alert-danger mt-3" role="alert">
+                    <strong>Primero debe registrar la empresa!</strong>
+                </div>
+                <div th:if="${hayEmpresas==true && hayUsuarios==false}" class="alert alert-danger mt-3" role="alert">
+                    <strong>Primero debe registrar por lo menos un usuario!</strong>
+                </div>
+                <div th:if="${hayEmpresas==false && hayUsuarios==false}" class="alert alert-danger mt-3" role="alert">
+                    <strong>Primero debe registrar una empresa y por lo menos un usuario!</strong>
                 </div>
                 <div class="my-4" style="text-align: right;" th:if="${hayTransacciones==true}">
                     <strong th:text="'Total: $ '+${#numbers.formatDecimal(totalTransacciones,1,'DEFAULT',2,'DEFAULT')}"></strong>
                 </div>
-                <a th:if="${hayEmpresas==true && hayUsuarios==true}" th:href="@{/transaction/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nueva transaccion</a>
+                <a th:if="${hayEmpresas==true && hayUsuarios==true && enterpriseUser!=null}" th:href="@{/transaction/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nueva transaccion</a>
             </div>
         </div>
     </div>

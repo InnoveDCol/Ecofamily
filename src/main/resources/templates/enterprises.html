@@ -24,6 +24,9 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${nameUser}+' ('+${roleUser}+')'">
                             Nombre de usuario (Rol)
                         </a>
+                        <span th:if="${phoneUser==null || enterpriseUser==null}" class="navbar-text text-danger">
+                              <strong>*** Perfil incompleto ***</strong>
+                        </span>
                         <ul class="dropdown-menu">
                             <li>
                                 <form th:action="@{/logout}" method="post">
@@ -47,8 +50,8 @@
             <div class="col container-fluid col-md-2 mx-auto justify-content-center border border-dark border-2">
                 <div class="d-grid gap-2  justify-content-center col-5 my-auto mx-auto" >
                     <a th:href="@{/}" class="btn btn-success mt-3 my-2 btn-lg" role="button">Inicio</a>
-                    <a th:href="@{/transactions}" class="btn btn-primary my-2 btn-lg" role="button">Transacciones</a>
-                    <a th:href="@{/users}" class="btn btn-primary mb-3 my-2 btn-lg" role="button">Usuarios</a>
+                    <a th:href="@{/users}" class="btn btn-primary my-2 btn-lg" role="button">Usuarios</a>
+                    <a th:href="@{/transactions}" class="btn btn-primary mb-3 my-2 btn-lg" role="button">Transacciones</a>
                 </div>
             </div>
             <div class="row container-fluid col-md-9 mx-auto my-auto justify-content-center border border-success border-2">
