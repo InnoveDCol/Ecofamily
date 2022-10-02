@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-//@ToString
 @Table(name = "TRANSACTIONS")
 public class Transaction {
 

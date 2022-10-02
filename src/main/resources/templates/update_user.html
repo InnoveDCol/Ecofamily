@@ -48,7 +48,7 @@
     </div>
     <div class="row g-0 text-center" >
         <div class="row container-fluid col-md-3 mx-auto justify-content-center border border-success border-2">
-            <form th:if="${hayEmpresas==true && enterpriseUser!=null}" th:action="@{/user/update/go/{usr_id}(usr_id=${empleado.id})}" th:object="${empleado}" method="post">
+            <form th:if="${hayEmpresas==true}" th:action="@{/user/update/go/{usr_id}(usr_id=${empleado.id})}" th:object="${empleado}" method="post">
                 <div class="mt-3 mb-3 d-none" disabled>
                     <label for="id" class="form-label">ID</label>
                     <input type="text" class="form-control text-center" id="id" value="0" name="id" th:field="*{id}" readonly disabled>
@@ -79,9 +79,9 @@
                     <label for="image" class="form-label">URL imagen</label>
                     <input type="text" class="form-control text-center" id="image" th:field="*{image}" required>
                 </div>
-                <div th:if="${roleUser=='Admin'}" class="mb-3" disabled>
+                <div th:if="${roleUser=='Admin'}" class="mb-3">
                     <label for="enterprise" class="form-label">Empresa</label>
-                    <select  class="form-select" id="enterprise" th:field="*{enterprise}" aria-label="Enterprise select" readobly disabled>
+                    <select  class="form-select" id="enterprise" th:field="*{enterprise}" aria-label="Enterprise select" required readonly disabled>
                         <option th:each="empresa:${listaEmpresas}" th:value="${empresa.id}" th:text="${empresa.name}" class="text-center"></option>
                     </select>
                 </div>
@@ -89,11 +89,11 @@
                     <label for="enterprise" class="form-label">Empresa</label>
                     <input type="text" class="form-control text-center" th:id="enterprise" th:field="*{enterprise.name}" required disabled readonly>
                 </div>
+                <div th:if="${hayEmpresas==true && enterpriseUser==null}" class="alert alert-danger mt-3" role="alert">
+                    <strong>Debe asociar su usuario a la empresa</strong>
+                </div>
                 <button type="submit" class="my-3 w-50 btn btn-outline-success">Aceptar</button>
             </form>
-            <div th:if="${hayEmpresas==true && enterpriseUser==null}" class="alert alert-danger mt-3" role="alert">
-                <strong>Debe asociar su usuario a la empresa</strong>
-            </div>
             <div th:if="${hayEmpresas==false}" class="alert alert-danger mt-3" role="alert">
                 <strong>Primero debe registrar la empresa!</strong>
             </div>

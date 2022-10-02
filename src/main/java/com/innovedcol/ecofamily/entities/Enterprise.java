@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-//@ToString
 @Table(name = "ENTERPRISES")
 public class Enterprise {
 
@@ -38,12 +37,12 @@ public class Enterprise {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy="enterprise", cascade = CascadeType.ALL)
-    @Column(name="employees", nullable = true)
+    @OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL)
+    @Column(name = "employees", nullable = true)
     private List<Employee> employees;
 
-    @OneToMany(mappedBy="enterprise", cascade = CascadeType.ALL)
-    @Column(name="transactions", nullable = true)
+    @OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL)
+    @Column(name = "transactions", nullable = true)
     private List<Transaction> transactions;
 
     @CreationTimestamp

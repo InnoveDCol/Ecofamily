@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class EmpController {
 
     // Método para llamar al servicio que retorna el arraylist de todos los empleados:
     @GetMapping("/users")
-    public List<?> EmployeeList () {
+    public List<?> EmployeeList() {
         return this.service.getEmployeesList();
     }
 
@@ -29,22 +30,26 @@ public class EmpController {
 
     // Método para llamar al servicio que busca un empleado de acuerdo a su id:
     @GetMapping("/user/{id}")
-    public Optional<Employee> searchEmployee(@PathVariable("id") Long id){
+    public Optional<Employee> searchEmployee(@PathVariable("id") Long id) {
         return this.service.searchEmployee(id);
     }
 
     // Método para llamar al servicio que busca las transacciones de una empresa de acuerdo a su id:
     @GetMapping("/user/{id}/movements")
-    public List<Object> searchTransactionsEmployee(@PathVariable("id") Long id){
+    public List<Object> searchTransactionsEmployee(@PathVariable("id") Long id) {
         return this.service.searchTransactionsEmployee(id);
     }
 
     // Método para llamar al servicio que actualiza la info de un employee:
     @PatchMapping("/user/{id}")
-    public String updateEmployee(@PathVariable("id") Long id, @RequestBody Employee emp) { return this.service.updateEmployee(id,emp); }
+    public String updateEmployee(@PathVariable("id") Long id, @RequestBody Employee emp) {
+        return this.service.updateEmployee(id, emp);
+    }
 
     // Método para llamar al servicio que elimina un perfil:
     @DeleteMapping("/user/{id}")
-    public String deleteEmployee(@PathVariable("id") Long id) { return this.service.deleteEmployee(id); }
+    public String deleteEmployee(@PathVariable("id") Long id) {
+        return this.service.deleteEmployee(id);
+    }
 
 }

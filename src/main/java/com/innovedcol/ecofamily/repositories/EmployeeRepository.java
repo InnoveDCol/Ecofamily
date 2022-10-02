@@ -13,5 +13,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Optional<Employee> findByRole(EnumRoleEmployee rol);
 
-    void deleteByEmail(String emailActual);
 }

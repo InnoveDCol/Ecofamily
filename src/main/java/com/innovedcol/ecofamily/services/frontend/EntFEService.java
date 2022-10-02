@@ -20,11 +20,11 @@ public class EntFEService {
     private final EnterpriseRepository repository;
 
     // Método que retorna un arraylist con el listado de las empresas:
-    public List<?> getEnterprisesList(){
+    public List<?> getEnterprisesList() {
         List<Enterprise> list = repository.findAll();
-        if (list.size() > 0){
+        if (list.size() > 0) {
             return list;
-        }else{
+        } else {
             return new ArrayList<String>() {{
                 add("No existen empresas");
             }};
@@ -32,78 +32,43 @@ public class EntFEService {
     }
 
     // Método que retorna un objeto de tipo Enterprise según su ID:
-    public Optional<Enterprise> searchEnterprise(Long id){
+    public Optional<Enterprise> searchEnterprise(Long id) {
         return repository.findById(id);
     }
 
-    public Optional<Enterprise> searchEnterpriseName(String name){
+    public Optional<Enterprise> searchEnterpriseName(String name) {
         return repository.findByName(name);
     }
 
-    public Optional<Enterprise> searchEnterpriseDocument(String document){
+    public Optional<Enterprise> searchEnterpriseDocument(String document) {
         return repository.findByDocument(document);
     }
 
-    // Método que retorna un objeto de tipo Transaction que hacen parte de una empresa:
-    public List<?> searchTransactionsEnterprise(Long id){
-        if(searchEnterprise(id).isPresent()){
-            List<Transaction> list = repository.findById(id).get().getTransactions();
-            if (list.size() > 0){
-                return list;
-            }else{
-                return new ArrayList<String>() {{
-                    add("Empresa sin transacciones");
-                }};
-            }
-        }else{
-            return new ArrayList<String>() {{
-                add("La empresa no existe!");
-            }};
-        }
-    }
-
-    // Método que retorna un objeto de tipo Employee que hacen parte de una empresa:
-    public List<?> searchEmployeesEnterprise(Long id){
-        if(searchEnterprise(id).isPresent()){
-            List<Employee> list = repository.findById(id).get().getEmployees();
-            if (list.size() > 0){
-                return list;
-            }else{
-                return new ArrayList<String>() {{
-                    add("Empresa sin empleados");
-                }};
-            }
-        }else{
-            return new ArrayList<String>() {{
-                add("La empresa no existe!");
-            }};
-        }
-    }
-
     // Método que crea una empresa y la añade a la base de datos. Retorna un mensaje
-    public String createEnterprise(Enterprise e){
-        if(searchEnterprise(e.getId()).isEmpty()){
-            if(searchEnterpriseName(e.getName()).isEmpty()) {
-                if(searchEnterpriseDocument(e.getDocument()).isEmpty()) {
+    public String createEnterprise(Enterprise e) {
+        if (searchEnterprise(e.getId()).isEmpty()) {
+            if (searchEnterpriseName(e.getName()).isEmpty()) {
+                if (searchEnterpriseDocument(e.getDocument()).isEmpty()) {
                     repository.save(e);
                     return "--> Empresa creada con éxito!";
-                }else{
+                } else {
                     return "--> El documento ingresado ya esta asociado a otra empresa!";
                 }
-            }else{
+            } else {
                 return "--> El nombre ingresado ya esta asociado a otra empresa!";
             }
-        }else{
+        } else {
             return "--> Empresa ya existe!";
         }
     }
+
     // Método que actualiza la información de una empresa según su id. Retorna un mensaje
-    public String updateEnterprise(Long id, Enterprise e){
+    public String updateEnterprise(Long id, Enterprise e) {
         List<Employee> empleadosActuales;
         List<Transaction> transaccionesActuales;
         LocalDateTime fechaCreacionActual;
 
-        if(searchEnterprise(id).isPresent()){
+        if (searchEnterprise(id).isPresent()) {
             empleadosActuales = searchEnterprise(id).get().getEmployees();
             transaccionesActuales = searchEnterprise(id).get().getTransactions();
             fechaCreacionActual = searchEnterprise(id).get().getCreatedAt();
@@ -112,17 +77,17 @@ public class EntFEService {
             e.setTransactions(transaccionesActuales);
             repository.save(e);
             return "--> Empresa actualizada con éxito!";
-        }else{
+        } else {
             return "--> La empresa indicada no existe!";
         }
     }
 
     // Método que elimina una empresa de la base de datos. Retorna un mensaje
-    public String deleteEnterprise(Long id){
-        if(searchEnterprise(id).isPresent()){
+    public String deleteEnterprise(Long id) {
+        if (searchEnterprise(id).isPresent()) {
             repository.deleteById(id);
             return "--> Empresa eliminada con éxito!";
-        }else{
+        } else {
             return "--> La empresa indicada no existe!";
         }
     }

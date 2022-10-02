@@ -72,7 +72,7 @@
                         <th scope="col" th:if="${roleUser=='Admin'}">Creado</th>
                         <th scope="col" th:if="${roleUser=='Admin'}">Actualizado</th>
                         <th scope="col"></th>
-                        <th scope="col" th:if="${roleUser=='Admin' && hayEmpresas==true}" ></th>
+                        <th scope="col" th:if="${roleUser=='Admin' && hayEmpresas==true}"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -85,8 +85,8 @@
                             <td><a role="button" th:href="@{/user/{id}/movements (id=${empleado.id})}">[Ver listado]</a></td>
                             <td th:text="${empleado.createdAt}" th:if="${roleUser=='Admin'}"></td>
                             <td th:text="${empleado.updatedAt}" th:if="${roleUser=='Admin'}"></td>
-                            <td th:if="${roleUser=='Admin' && hayEmpresas==true}"><a role="button" th:href="@{/user/update/{id}(id=${empleado.id})}" th:title="'Modificar '+${empleado.name}">✏</a></td>
-                            <td th:if="${roleUser=='Admin'}" ><a role="button" th:title="'Eliminar '+${empleado.name}" data-bs-toggle="modal" th:attr="data-bs-target=${'#staticBackdrop'+empleado.id}" data-row="${empleado}">❌</a></td>
+                            <td th:if="${roleUser=='Admin' && hayEmpresas==true && (empleado.role != T(com.innovedcol.ecofamily.enums.EnumRoleEmployee).Admin || emailUser==empleado.email)}"><a role="button" th:href="@{/user/update/{id}(id=${empleado.id})}" th:title="'Modificar '+${empleado.name}">✏</a></td>
+                            <td th:if="${roleUser=='Admin' && hayEmpresas==true && (empleado.role != T(com.innovedcol.ecofamily.enums.EnumRoleEmployee).Admin || emailUser==empleado.email)}"><a role="button" th:title="'Eliminar '+${empleado.name}" data-bs-toggle="modal" th:attr="data-bs-target=${'#staticBackdrop'+empleado.id}" data-row="${empleado}">❌</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -97,7 +97,6 @@
                     <strong>Primero debe registrar la empresa!</strong>
                 </div>
                 <a th:if="${roleUser=='Admin' && hayEmpresas==true && enterpriseUser!=null}" th:href="@{/user/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nuevo usuario</a>
-                <!--a th:if="${roleUser=='Admin'}" th:href="@{/user/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nuevo usuario</a-->
             </div>
 
             <!-- ******************************* Si no es un usuario Admin *******************************  -->

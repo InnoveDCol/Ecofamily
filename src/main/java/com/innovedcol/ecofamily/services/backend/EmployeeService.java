@@ -22,11 +22,11 @@ public class EmployeeService {
     private final EnterpriseService enterpriseService;
 
     // Método que retorna el arraylist de todos los empleados:
-    public List<?> getEmployeesList(){
+    public List<?> getEmployeesList() {
         List<Employee> list = employeeRepository.findAll();
-        if (list.size() > 0){
+        if (list.size() > 0) {
             return list;
-        }else{
+        } else {
             return new ArrayList<String>() {{
                 add("No existen empleados");
             }};
@@ -34,19 +34,19 @@ public class EmployeeService {
     }
 
     // Buscar: Método que retorna un objeto de tipo Employee según su ID:
-    public Optional<Employee> searchEmployee(Long id){
+    public Optional<Employee> searchEmployee(Long id) {
         return employeeRepository.findById(id);
     }
 
-    public Optional<Employee> searchEmployeeEmail(String email){
+    public Optional<Employee> searchEmployeeEmail(String email) {
         return employeeRepository.findByEmail(email);
     }
 
     // Método que retorna un objeto de tipo Transaction que hacen parte de una empresa:
-    public List<Object> searchTransactionsEmployee(Long id){
-        if(searchEmployee(id).isPresent()){
+    public List<Object> searchTransactionsEmployee(Long id) {
+        if (searchEmployee(id).isPresent()) {
             return List.of(employeeRepository.findById(id).get().getTransactions());
-        }else{
+        } else {
             return List.of(new ArrayList<String>() {{
                 add("Empleado no existe");
             }});
@@ -55,32 +55,32 @@ public class EmployeeService {
 
     public String createEmployee(Long enterprise_id, Employee e) {
 
-        if(searchEmployee(e.getId()).isEmpty()) {
-            if(searchEmployeeEmail(e.getEmail()).isEmpty()) {
-                if(enterpriseService.searchEnterprise(enterprise_id).isPresent()){
+        if (searchEmployee(e.getId()).isEmpty()) {
+            if (searchEmployeeEmail(e.getEmail()).isEmpty()) {
+                if (enterpriseService.searchEnterprise(enterprise_id).isPresent()) {
                     enterpriseRepository.findById(enterprise_id).map(ent -> {
                         e.setEnterprise(ent);
                         return employeeRepository.save(e);
                     });
                     return "--> Empleado creado con éxito!";
-                }else {
+                } else {
                     return "--> La empresa ingresada no existe!!";
                 }
-            }else{
+            } else {
                 return "--> El email ingresado ya esta asociado a otro empleado!";
             }
-        }else {
+        } else {
             return "--> El empleado ya existe!";
         }
     }
 
     // Actualizar: Método que actualiza la información de un empleado según su id. Retorna un mensaje:
-    public String updateEmployee(Long id, Employee emp){
+    public String updateEmployee(Long id, Employee emp) {
         Enterprise empresaActual;
         LocalDateTime fechaCreacionActual;
         List<Transaction> transaccionesActuales;
 
-        if(searchEmployee(id).isPresent()){
+        if (searchEmployee(id).isPresent()) {
             empresaActual = searchEmployee(id).get().getEnterprise();
             fechaCreacionActual = searchEmployee(id).get().getCreatedAt();
             transaccionesActuales = searchEmployee(id).get().getTransactions();
@@ -89,17 +89,17 @@ public class EmployeeService {
             emp.setTransactions(transaccionesActuales);
             employeeRepository.save(emp);
             return "--> Empleado actualizado con éxito!";
-        }else{
+        } else {
             return "--> El empleado indicado no existe!";
         }
     }
 
     // Eliminar: Método que elimina un empleado de la base de datos. Retorna un mensaje:
-    public String deleteEmployee(Long id){
-        if(searchEmployee(id).isPresent()){
+    public String deleteEmployee(Long id) {
+        if (searchEmployee(id).isPresent()) {
             employeeRepository.deleteById(id);
             return "--> Empleado eliminado con éxito!";
-        }else{
+        } else {
             return "--> El empleado indicado no existe!";
         }
     }

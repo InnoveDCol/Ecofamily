@@ -25,11 +25,11 @@ public class EmpFEService {
     private final EnterpriseService enterpriseService;
 
     // Método que retorna el arraylist de todos los empleados:
-    public List<?> getEmployeesList(){
+    public List<?> getEmployeesList() {
         List<Employee> list = employeeRepository.findAll();
-        if (list.size() > 0){
+        if (list.size() > 0) {
             return list;
-        }else{
+        } else {
             return new ArrayList<String>() {{
                 add("No existen empleados");
             }};
@@ -37,24 +37,24 @@ public class EmpFEService {
     }
 
     // Buscar: Método que retorna un objeto de tipo Employee según su ID:
-    public Optional<Employee> searchEmployee(Long id){
+    public Optional<Employee> searchEmployee(Long id) {
         return employeeRepository.findById(id);
     }
 
-    public Optional<Employee> searchEmployeeEmail(String email){
+    public Optional<Employee> searchEmployeeEmail(String email) {
         return employeeRepository.findByEmail(email);
     }
 
-    public Optional<Employee> searchRoleEmail(EnumRoleEmployee role){
+    public Optional<Employee> searchRoleEmail(EnumRoleEmployee role) {
         return employeeRepository.findByRole(role);
     }
 
     // Método que retorna un objeto de tipo Transaction que hacen parte de una empresa:
-    public List<?> searchTransactionsEmployee(Long id){
-    List<Transaction> list = employeeRepository.findById(id).get().getTransactions();
-        if (list.size() > 0){
+    public List<?> searchTransactionsEmployee(Long id) {
+        List<Transaction> list = employeeRepository.findById(id).get().getTransactions();
+        if (list.size() > 0) {
             return list;
-        }else{
+        } else {
             return new ArrayList<String>() {{
                 add("Empleado no existe");
             }};
@@ -63,100 +63,99 @@ public class EmpFEService {
 
     public String createEmployee(Long enterprise_id, Employee e) {
 
-        if(searchEmployee(e.getId()).isEmpty()) {
-            if(searchEmployeeEmail(e.getEmail()).isEmpty()) {
-                if(enterpriseService.searchEnterprise(enterprise_id).isPresent()){
+        if (searchEmployee(e.getId()).isEmpty()) {
+            if (searchEmployeeEmail(e.getEmail()).isEmpty()) {
+                if (enterpriseService.searchEnterprise(enterprise_id).isPresent()) {
                     enterpriseRepository.findById(enterprise_id).map(ent -> {
                         e.setEnterprise(ent);
                         return employeeRepository.save(e);
                     });
                     return "--> Empleado creado con éxito!";
-                }else {
+                } else {
                     return "--> La empresa ingresada no existe!!";
                 }
-            }else{
+            } else {
                 return "--> El email ingresado ya esta asociado a otro empleado!";
             }
-        }else {
+        } else {
             return "--> El empleado ya existe!";
         }
     }
 
     // Actualizar: Método que actualiza la información de un empleado según su id. Retorna un mensaje:
-    public String updateEmployee(Long id, Employee emp){
-        Enterprise empresaActual;
+    public String updateEmployee(Long id, Employee emp) {
         LocalDateTime fechaCreacionActual;
         List<Transaction> transaccionesActuales;
-        String emailActual="";
+        String emailActual;
         EnumRoleEmployee rolActual;
-        //String emailModificado="";
 
-        if(searchEmployee(id).isPresent()){
+        if (searchEmployee(id).isPresent()) {
             emailActual = searchEmployee(id).get().getEmail();
-            empresaActual = searchEmployee(id).get().getEnterprise();
             fechaCreacionActual = searchEmployee(id).get().getCreatedAt();
             transaccionesActuales = searchEmployee(id).get().getTransactions();
             rolActual = searchEmployee(id).get().getRole();
 
-            //employeeRepository.deleteByEmail(emailActual);
-            if (emp.getRole()==null){
+            if (emp.getRole() == null) {
                 emp.setRole(rolActual);
             }
+            if (emp.getEnterprise() == null) {
+                emp.setEnterprise((Enterprise) enterpriseService.getEnterprisesList().get(0));
+            }
+
             emp.setEmail(emailActual);
-            emp.setEnterprise(empresaActual);
             emp.setCreatedAt(fechaCreacionActual);
             emp.setTransactions(transaccionesActuales);
             employeeRepository.save(emp);
             return "--> Empleado actualizado con éxito!";
-        }else{
+        } else {
             return "--> El empleado indicado no existe!";
         }
     }
 
     // Eliminar: Método que elimina un empleado de la base de datos. Retorna un mensaje:
-    public String deleteEmployee(Long id){
-        if(searchEmployee(id).isPresent()){
+    public String deleteEmployee(Long id) {
+        if (searchEmployee(id).isPresent()) {
             employeeRepository.deleteById(id);
             return "--> Empleado eliminado con éxito!";
-        }else{
+        } else {
             return "--> El empleado indicado no existe!";
         }
     }
 
-    public Employee createOrValidateUser(Map<String,Object> dataUser){
+    public Employee createOrValidateUser(Map<String, Object> dataUser) {
         Optional<Employee> usuario = searchEmployeeEmail((String) dataUser.get("email"));
-        if (usuario.isEmpty()){
+        if (usuario.isEmpty()) {
             String name = (String) dataUser.get("name");
             String email = (String) dataUser.get("email");
             String phone = (String) dataUser.get("phone");
             String image = (String) dataUser.get("picture");
-            if (image.equals("null") || image==null){
+            if (image.equals("null")) {
                 image = "https://i.ibb.co/4jrvy5h/ecofamily.png";
             }
             LocalDateTime fechaCreacion = LocalDateTime.now();
             LocalDateTime fechaActualizacion = LocalDateTime.now();
             EnumRoleEmployee rol;
-            if (searchRoleEmail(EnumRoleEmployee.valueOf("Admin")).isPresent()){
+            if (searchRoleEmail(EnumRoleEmployee.valueOf("Admin")).isPresent()) {
                 rol = EnumRoleEmployee.valueOf("Operario");
-            }else{
+            } else {
                 rol = EnumRoleEmployee.valueOf("Admin");
             }
 
             Enterprise enterprise = extractEnterpriseInfo();
 
-            Employee employee = new Employee(0L, name, email, phone, rol, image, enterprise,null,fechaCreacion,fechaActualizacion);
+            Employee employee = new Employee(0L, name, email, phone, rol, image, enterprise, null, fechaCreacion, fechaActualizacion);
             employeeRepository.save(employee);
             return employee;
-        }else{
+        } else {
             return usuario.get();
         }
     }
 
-    public Enterprise extractEnterpriseInfo(){
+    public Enterprise extractEnterpriseInfo() {
         List<Enterprise> list = enterpriseRepository.findAll();
-        if (list.size() > 0){
+        if (list.size() > 0) {
             return list.get(0);
-        }else{
+        } else {
             return null;
         }
     }

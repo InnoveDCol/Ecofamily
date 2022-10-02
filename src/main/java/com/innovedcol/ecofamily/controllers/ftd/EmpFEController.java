@@ -29,21 +29,21 @@ public class EmpFEController {
 
         Employee currentUser;
 
-        if (principal != null){
+        if (principal != null) {
 
             List<?> listaEmpleados = this.employeeService.getEmployeesList();
             List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
 
-            if (listaEmpresas.size()==1 && listaEmpresas.get(0).toString().equals("No existen empresas")){
-                model.addAttribute("hayEmpresas",false);
-            }else {
-                model.addAttribute("hayEmpresas",true);
+            if (listaEmpresas.size() == 1 && listaEmpresas.get(0).toString().equals("No existen empresas")) {
+                model.addAttribute("hayEmpresas", false);
+            } else {
+                model.addAttribute("hayEmpresas", true);
             }
 
-            if (listaEmpleados.size()==1 && listaEmpleados.get(0).toString().equals("No existen empleados")){
-                model.addAttribute("hayEmpleados",false);
-            }else {
-                model.addAttribute("hayEmpleados",true);
+            if (listaEmpleados.size() == 1 && listaEmpleados.get(0).toString().equals("No existen empleados")) {
+                model.addAttribute("hayEmpleados", false);
+            } else {
+                model.addAttribute("hayEmpleados", true);
                 model.addAttribute("listaEmpleados", listaEmpleados);
             }
 
@@ -57,27 +57,27 @@ public class EmpFEController {
             model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
             return "users";
-        }else{
+        } else {
             return "redirect:/";
         }
     }
 
 
     @GetMapping("/user/new")
-    public String formNuevoEmpleado(Model model, @AuthenticationPrincipal OidcUser principal){
+    public String formNuevoEmpleado(Model model, @AuthenticationPrincipal OidcUser principal) {
         Employee currentUser;
-        if (principal != null){
+        if (principal != null) {
             List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
-            List<EnumRoleEmployee> listaRoles = new ArrayList<EnumRoleEmployee>(Arrays.asList(EnumRoleEmployee.values()));
-            if (listaEmpresas.size()==1 && listaEmpresas.get(0).toString().equals("No existen empresas")){
-                model.addAttribute("hayEmpresas",false);
-            }else {
-                model.addAttribute("hayEmpresas",true);
-                model.addAttribute("listaEmpresas",listaEmpresas);
+            List<EnumRoleEmployee> listaRoles = new ArrayList<>(Arrays.asList(EnumRoleEmployee.values()));
+            if (listaEmpresas.size() == 1 && listaEmpresas.get(0).toString().equals("No existen empresas")) {
+                model.addAttribute("hayEmpresas", false);
+            } else {
+                model.addAttribute("hayEmpresas", true);
+                model.addAttribute("listaEmpresas", listaEmpresas);
             }
 
-            model.addAttribute("listaRoles",listaRoles);
-            model.addAttribute("empleado",new Employee());
+            model.addAttribute("listaRoles", listaRoles);
+            model.addAttribute("empleado", new Employee());
 
             currentUser = employeeService.createOrValidateUser(principal.getClaims());
             String roleActual = currentUser.getRole().toString();
@@ -86,86 +86,88 @@ public class EmpFEController {
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", roleActual);
             model.addAttribute("phoneUser", currentUser.getPhone());
-            if (currentUser.getEnterprise()!=null){
+            if (currentUser.getEnterprise() != null) {
                 model.addAttribute("idEntUser", currentUser.getEnterprise().getId());
-            }else{
+            } else {
                 model.addAttribute("idEntUser", null);
             }
             model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
-            if (roleActual.equals("Admin")){
+            if (roleActual.equals("Admin")) {
                 return "new_user";
-            }else{
+            } else {
                 return "redirect:/";
             }
-        }else{
+        } else {
             return "redirect:/";
         }
     }
 
     @PostMapping("/user/new/go/{ent_id}")
-    public String createEmployee(@PathVariable("ent_id") Long ent_id, @ModelAttribute("empleado") Employee e, Model model, RedirectAttributes attributes){
+    public String createEmployee(@PathVariable("ent_id") Long ent_id, @ModelAttribute("empleado") Employee e, RedirectAttributes attributes) {
         String result = this.employeeService.createEmployee(ent_id, e);
-        if(result.equals("--> Empleado creado con éxito!")) {
-            attributes.addFlashAttribute("mensajeOk",result);
-        }else{
-            attributes.addFlashAttribute("error",result);
+        if (result.equals("--> Empleado creado con éxito!")) {
+            attributes.addFlashAttribute("mensajeOk", result);
+        } else {
+            attributes.addFlashAttribute("error", result);
         }
         return "redirect:/users";
     }
 
     @GetMapping("/user/update/{id}")
-    public String formActualizarEmpleado(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal OidcUser principal){
+    public String formActualizarEmpleado(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal OidcUser principal) {
         Employee currentUser;
-        if (principal != null){
+        //Enterprise empresa;
+        if (principal != null) {
             List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
             List<EnumRoleEmployee> listaRoles = new ArrayList<>(Arrays.asList(EnumRoleEmployee.values()));
-            if (listaEmpresas.size()==1 && listaEmpresas.get(0).toString().equals("No existen empresas")){
-                model.addAttribute("hayEmpresas",false);
-            }else {
-                model.addAttribute("hayEmpresas",true);
-                model.addAttribute("listaEmpresas",listaEmpresas);
+            if (listaEmpresas.size() == 1 && listaEmpresas.get(0).toString().equals("No existen empresas")) {
+                model.addAttribute("hayEmpresas", false);
+            } else {
+                model.addAttribute("hayEmpresas", true);
+                model.addAttribute("listaEmpresas", listaEmpresas);
+                //empresa = (Enterprise) listaEmpresas.get(0);
             }
 
-            model.addAttribute("listaRoles",listaRoles);
-            model.addAttribute("empleado",new Employee());
+            model.addAttribute("listaRoles", listaRoles);
+            //model.addAttribute("empleado", new Employee());
 
             currentUser = employeeService.createOrValidateUser(principal.getClaims());
             String roleActual = currentUser.getRole().toString();
             String emailActual = currentUser.getEmail();
+
             model.addAttribute("nameUser", currentUser.getName());
             model.addAttribute("emailUser", currentUser.getEmail());
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", roleActual);
             model.addAttribute("phoneUser", currentUser.getPhone());
-            if (currentUser.getEnterprise()!=null){
+            if (currentUser.getEnterprise() != null) {
                 model.addAttribute("idEntUser", currentUser.getEnterprise().getId());
-            }else{
+            } else {
                 model.addAttribute("idEntUser", null);
             }
             model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
             Employee empleadoPorActualizar = employeeService.searchEmployee(id).get();
 
-            if (emailActual.equals(empleadoPorActualizar.getEmail()) || roleActual.equals("Admin")){
-                //model.addAttribute("empleado",employeeService.searchEmployee(id).get());
-                model.addAttribute("empleado",empleadoPorActualizar);
+            if (emailActual.equals(empleadoPorActualizar.getEmail()) || roleActual.equals("Admin")) {
+                model.addAttribute("empleado", empleadoPorActualizar);
                 return "update_user";
-            }else{
+            } else {
                 return "redirect:/";
             }
-        }else{
+        } else {
             return "redirect:/";
         }
     }
 
     @PostMapping("/user/update/go/{id}")
-    public String updateEmployee(@PathVariable("id") Long id, @ModelAttribute("empleado") Employee e, Model model, RedirectAttributes attributes){
+    public String updateEmployee(@PathVariable("id") Long id, @ModelAttribute("empleado") Employee e, RedirectAttributes attributes) {
         String result = this.employeeService.updateEmployee(id, e);
-        if(result.equals("--> Empleado actualizado con éxito!")) {
-            attributes.addFlashAttribute("mensajeOk",result);
-        }else{
-            attributes.addFlashAttribute("error",result);
+        if (result.equals("--> Empleado actualizado con éxito!")) {
+            attributes.addFlashAttribute("mensajeOk", result);
+        } else {
+            attributes.addFlashAttribute("error", result);
         }
         return "redirect:/users";
     }
@@ -178,27 +180,27 @@ public class EmpFEController {
 
     // Método para llamar al servicio que busca las transacciones de una empresa de acuerdo a su id:
     @GetMapping("/user/{id}/movements")
-    public String searchTransactionsEmployee(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal OidcUser principal){
+    public String searchTransactionsEmployee(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal OidcUser principal) {
         Employee currentUser;
 
-        if (principal != null){
-            double totalIngresos=0, totalEgresos=0, totalTransacciones=0;
+        if (principal != null) {
+            double totalIngresos = 0, totalEgresos = 0, totalTransacciones;
             List<?> transactions = this.employeeService.searchTransactionsEmployee(id);
-            if (transactions.size()==1 && transactions.get(0).toString().equals("Empleado no existe")){
-                model.addAttribute("userConTransacciones",false);
-            }else {
-                for (Transaction tx : (List<Transaction>) transactions){
-                    if(tx.getType().toString().equals("Ingreso")){
+            if (transactions.size() == 1 && transactions.get(0).toString().equals("Empleado no existe")) {
+                model.addAttribute("userConTransacciones", false);
+            } else {
+                for (Transaction tx : (List<Transaction>) transactions) {
+                    if (tx.getType().toString().equals("Ingreso")) {
                         totalIngresos += tx.getAmount();
                     }
-                    if(tx.getType().toString().equals("Egreso")){
+                    if (tx.getType().toString().equals("Egreso")) {
                         totalEgresos += tx.getAmount();
                     }
                 }
                 totalTransacciones = totalIngresos - totalEgresos;
-                model.addAttribute("userConTransacciones",true);
+                model.addAttribute("userConTransacciones", true);
                 model.addAttribute("listaTransaccionesUser", transactions);
-                model.addAttribute("totalTransacciones",totalTransacciones);
+                model.addAttribute("totalTransacciones", totalTransacciones);
             }
             currentUser = employeeService.createOrValidateUser(principal.getClaims());
             String roleActual = currentUser.getRole().toString();
@@ -210,7 +212,7 @@ public class EmpFEController {
             model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
             return "user_transactions";
-        }else{
+        } else {
             return "redirect:/";
         }
     }

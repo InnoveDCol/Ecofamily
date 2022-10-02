@@ -1,126 +1,128 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-    <meta charset="UTF-8">
-    <title> Transacciones </title>
-    <link rel="shortcut icon" type="image/png" th:href="@{/images/general/favicon.png}"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/}" href="">
-                <img th:src="@{/images/general/favicon.png}" src="" alt="Ecofamily" width="30" height="24" class="d-inline-block align-text-top">
-                Ecofamily
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0" sec:authorize="isAuthenticated()">
-                    <img th:src="${imgUser}" src="" alt="Ecofamily" width="30" height="24" class="d-inline-block align-text-top mt-2" />
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${nameUser}+' ('+${roleUser}+')'">
-                            Nombre de usuario (Rol)
-                        </a>
-                        <span th:if="${phoneUser==null || enterpriseUser==null}" class="navbar-text text-danger">
-                              <strong>*** Perfil incompleto ***</strong>
-                        </span>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <form th:action="@{/logout}" method="post">
-                                    <button class="dropdown-item" type="submit">Cerrar sesion</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+    <head>
+        <meta charset="UTF-8">
+        <title> Transacciones </title>
+        <link rel="shortcut icon" type="image/png" th:href="@{/images/general/favicon.png}"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/}" href="">
+                    <img th:src="@{/images/general/favicon.png}" src="" alt="Ecofamily" width="30" height="24" class="d-inline-block align-text-top">
+                    Ecofamily
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" sec:authorize="isAuthenticated()">
+                        <img th:src="${imgUser}" src="" alt="Ecofamily" width="30" height="24" class="d-inline-block align-text-top mt-2" />
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${nameUser}+' ('+${roleUser}+')'">
+                                Nombre de usuario (Rol)
+                            </a>
+                            <span th:if="${phoneUser==null || enterpriseUser==null}" class="navbar-text text-danger">
+                                  <strong>*** Perfil incompleto ***</strong>
+                            </span>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <form th:action="@{/logout}" method="post">
+                                        <button class="dropdown-item" type="submit">Cerrar sesion</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-<div class="container-fluid text-center">
-        <div class="row g-0 text-center" >
-            <div class="row container-fluid col-md-8 mx-auto justify-content-center ">
-                <img th:src="@{/images/general/logo_ecofamily.png}" src="" class="img-thumbnail my-3 w-25 border border-0" alt="Ecofamily" />
-                <h1 class="display-1 mb-4 text-primary fw-bold">Transacciones</h1>
+        </nav>
+    <div class="container-fluid text-center">
+            <div class="row g-0 text-center" >
+                <div class="row container-fluid col-md-8 mx-auto justify-content-center ">
+                    <img th:src="@{/images/general/logo_ecofamily.png}" src="" class="img-thumbnail my-3 w-25 border border-0" alt="Ecofamily" />
+                    <h1 class="display-1 mb-4 text-primary fw-bold">Transacciones</h1>
+                </div>
             </div>
-        </div>
 
-        <div class="row g-0 text-center" >
-            <div class="col container-fluid col-md-2 mx-auto my-auto justify-content-center border border-dark border-2">
-                <div class="d-grid gap-2 justify-content-center col-5 my-auto mx-auto" >
-                    <a th:href="@{/}" class="btn btn-success mt-3 my-2 btn-lg" role="button">Inicio</a>
-                    <a th:if="${roleUser=='Admin'}" th:href="@{/enterprise}" class="btn btn-warning my-2 btn-lg" role="button">Empresa</a>
-                    <a th:if="${roleUser=='Admin'}" th:href="@{/users}" class="btn btn-primary mb-3 my-2 btn-lg" role="button">Usuarios</a>
-                    <a th:if="${roleUser!='Admin'}" th:href="@{/users}" class="btn btn-primary mb-3 my-2 btn-lg" role="button">Mi usuario</a>
+            <div class="row g-0 text-center" >
+                <div class="col container-fluid col-md-2 mx-auto my-auto justify-content-center border border-dark border-2">
+                    <div class="d-grid gap-2 justify-content-center col-5 my-auto mx-auto" >
+                        <a th:href="@{/}" class="btn btn-success mt-3 my-2 btn-lg" role="button">Inicio</a>
+                        <a th:if="${roleUser=='Admin'}" th:href="@{/enterprise}" class="btn btn-warning my-2 btn-lg" role="button">Empresa</a>
+                        <a th:if="${roleUser=='Admin'}" th:href="@{/users}" class="btn btn-primary mb-3 my-2 btn-lg" role="button">Usuarios</a>
+                        <a th:if="${roleUser!='Admin'}" th:href="@{/users}" class="btn btn-primary mb-3 my-2 btn-lg" role="button">Mi usuario</a>
+                    </div>
                 </div>
-            </div>
-            <div class="row container-fluid col-md-9 mx-auto my-auto justify-content-center border border-success border-2">
-                <table class="table table-hover border border-dark border-1 my-auto mt-2 mb-2" th:if="${hayTransacciones==true}">
-                    <thead class="table-dark">
-                    <tr>
-                        <th scope="col" class="d-none">id</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Concepto</th>
-                        <th scope="col">Monto</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col" th:if="${roleUser=='Admin'}">Creacion</th>
-                        <th scope="col" th:if="${roleUser=='Admin'}">Modificacion</th>
-                        <th scope="col"></th>
-                        <th scope="col" th:if="${roleUser=='Admin'}"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="transaccion:${listaTransacciones}">
-                            <th scope="row" class="d-none" th:text="${transaccion.id}"></th>
-                            <td th:text="${transaccion.type}"></td>
-                            <td th:text="${transaccion.concept}"></td>
-                            <!--td th:text="'$'+${transaccion.amount}"></td-->
-                            <!--td th:text="${#numbers.formatCurrency(transaccion.amount)}"></td-->
-                            <td th:text="'$ '+${#numbers.formatDecimal(transaccion.amount,1,'DEFAULT',2,'DEFAULT')}"></td>
-                            <td th:text="${transaccion.employee.name}"></td>
-                            <td th:if="${roleUser=='Admin'}" th:text="${transaccion.createdAt}"></td>
-                            <td th:if="${roleUser=='Admin'}" th:text="${transaccion.updatedAt}"></td>
-                            <td><a role="button" th:if="${transaccion.employee.email==emailUser || roleUser=='Admin'}" th:href="@{/transaction/update/{id}(id=${transaccion.id})}" th:title="'Modificar transaccion '+${transaccion.id}">✏</a></td>  <!-- TODO: Falta implementar-->
-                            <td th:if="${roleUser=='Admin'}" ><a role="button" th:title="'Eliminar transaccion '+${transaccion.id}" data-bs-toggle="modal" th:attr="data-bs-target=${'#staticBackdrop'+transaccion.id}" data-row="${transaccion}">❌</a></td>
+                <div class="row container-fluid col-md-9 mx-auto my-auto justify-content-center border border-success border-2">
+                    <table class="table table-hover border border-dark border-1 my-auto mt-2 mb-2" th:if="${hayTransacciones==true}">
+                        <thead class="table-dark">
+                        <tr>
+                            <th scope="col" class="d-none">id</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Concepto</th>
+                            <th scope="col">Monto</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col" th:if="${roleUser=='Admin'}">Creacion</th>
+                            <th scope="col" th:if="${roleUser=='Admin'}">Modificacion</th>
+                            <th scope="col"></th>
+                            <th scope="col" th:if="${roleUser=='Admin'}"></th>
                         </tr>
-                    </tbody>
-                </table>
-                <div th:if="${hayEmpresas==true && enterpriseUser==null}" class="alert alert-danger mt-3" role="alert">
-                    <strong>Debe asociar su usuario a la empresa</strong>
+                        </thead>
+                        <tbody>
+                            <tr th:each="transaccion:${listaTransacciones}">
+                                <th scope="row" class="d-none" th:text="${transaccion.id}"></th>
+                                <td th:text="${transaccion.type}"></td>
+                                <td th:text="${transaccion.concept}"></td>
+                                <!--td th:text="'$'+${transaccion.amount}"></td-->
+                                <!--td th:text="${#numbers.formatCurrency(transaccion.amount)}"></td-->
+                                <td th:text="'$ '+${#numbers.formatDecimal(transaccion.amount,1,'DEFAULT',2,'DEFAULT')}"></td>
+                                <td th:text="${transaccion.employee.name}"></td>
+                                <td th:if="${roleUser=='Admin'}" th:text="${transaccion.createdAt}"></td>
+                                <td th:if="${roleUser=='Admin'}" th:text="${transaccion.updatedAt}"></td>
+                                <td><a role="button" th:if="${transaccion.employee.email==emailUser || roleUser=='Admin'}" th:href="@{/transaction/update/{id}(id=${transaccion.id})}" th:title="'Modificar transaccion '+${transaccion.id}">✏</a></td>
+                                <td th:if="${roleUser=='Admin'}" ><a role="button" th:title="'Eliminar transaccion '+${transaccion.id}" data-bs-toggle="modal" th:attr="data-bs-target=${'#staticBackdrop'+transaccion.id}" data-row="${transaccion}">❌</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${hayEmpresas==true && enterpriseUser==null}" class="alert alert-danger mt-3" role="alert">
+                        <strong>Debe asociar su usuario a la empresa</strong>
+                    </div>
+                    <div th:if="${hayEmpresas==false && hayUsuarios==true}" class="alert alert-danger mt-3" role="alert">
+                        <strong>Primero debe registrar la empresa!</strong>
+                    </div>
+                    <div th:if="${hayEmpresas==true && hayUsuarios==false}" class="alert alert-danger mt-3" role="alert">
+                        <strong>Primero debe registrar por lo menos un usuario!</strong>
+                    </div>
+                    <div th:if="${hayEmpresas==false && hayUsuarios==false}" class="alert alert-danger mt-3" role="alert">
+                        <strong>Primero debe registrar una empresa y por lo menos un usuario!</strong>
+                    </div>
+                    <div class="my-2 border border-success p-2 border-2 rounded" style="text-align: right;" th:if="${hayTransacciones==true}">
+                        <strong class="fs-2" th:text="'Total: $ '+${#numbers.formatDecimal(totalTransacciones,1,'DEFAULT',2,'DEFAULT')}"></strong>
+                    </div>
+                    <div>
+                    <a th:if="${hayEmpresas==true && hayUsuarios==true && enterpriseUser!=null}" th:href="@{/transaction/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nueva transaccion</a>
+                    </div>
                 </div>
-                <div th:if="${hayEmpresas==false && hayUsuarios==true}" class="alert alert-danger mt-3" role="alert">
-                    <strong>Primero debe registrar la empresa!</strong>
-                </div>
-                <div th:if="${hayEmpresas==true && hayUsuarios==false}" class="alert alert-danger mt-3" role="alert">
-                    <strong>Primero debe registrar por lo menos un usuario!</strong>
-                </div>
-                <div th:if="${hayEmpresas==false && hayUsuarios==false}" class="alert alert-danger mt-3" role="alert">
-                    <strong>Primero debe registrar una empresa y por lo menos un usuario!</strong>
-                </div>
-                <div class="my-4" style="text-align: right;" th:if="${hayTransacciones==true}">
-                    <strong th:text="'Total: $ '+${#numbers.formatDecimal(totalTransacciones,1,'DEFAULT',2,'DEFAULT')}"></strong>
-                </div>
-                <a th:if="${hayEmpresas==true && hayUsuarios==true && enterpriseUser!=null}" th:href="@{/transaction/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nueva transaccion</a>
             </div>
         </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" th:each="transaccion : ${listaTransacciones}" th:attr="id=${'staticBackdrop' + transaccion.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Eliminar transaccion</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" th:text="'¿Realmente desea eliminar la transaccion con ID '+${transaccion.id}+'?'"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <a role="button" class="btn btn-primary" th:href="@{/transaction/delete/{id}(id=${transaccion.id})}">Si</a>
+        <!-- Modal -->
+        <div class="modal fade" th:each="transaccion : ${listaTransacciones}" th:attr="id=${'staticBackdrop' + transaccion.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Eliminar transaccion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" th:text="'¿Realmente desea eliminar la transaccion con ID '+${transaccion.id}+'?'"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <a role="button" class="btn btn-primary" th:href="@{/transaction/delete/{id}(id=${transaccion.id})}">Si</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

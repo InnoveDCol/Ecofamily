@@ -12,14 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @AllArgsConstructor
 public class GnrlFEController {
-
     private final EmpFEService employeeService;
-
     @RequestMapping("/")
-    public String index(Model model, @AuthenticationPrincipal OidcUser principal)
-    {
+    public String index(Model model, @AuthenticationPrincipal OidcUser principal) {
         Employee currentUser;
-        if (principal != null){
+        if (principal != null) {
 
             currentUser = employeeService.createOrValidateUser(principal.getClaims());
 
@@ -28,9 +25,9 @@ public class GnrlFEController {
             model.addAttribute("imgUser", currentUser.getImage());
             model.addAttribute("roleUser", currentUser.getRole().toString());
             model.addAttribute("phoneUser", currentUser.getPhone());
-            if (currentUser.getEnterprise()!=null){
+            if (currentUser.getEnterprise() != null) {
                 model.addAttribute("idEntUser", currentUser.getEnterprise().getId());
-            }else{
+            } else {
                 model.addAttribute("idEntUser", null);
             }
             model.addAttribute("enterpriseUser", currentUser.getEnterprise());
