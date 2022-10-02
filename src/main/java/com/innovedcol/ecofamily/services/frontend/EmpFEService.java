@@ -3,6 +3,7 @@ package com.innovedcol.ecofamily.services.frontend;
 import com.innovedcol.ecofamily.entities.Employee;
 import com.innovedcol.ecofamily.entities.Enterprise;
 import com.innovedcol.ecofamily.entities.Transaction;
+import com.innovedcol.ecofamily.enums.EnumRoleEmployee;
 import com.innovedcol.ecofamily.repositories.EmployeeRepository;
 import com.innovedcol.ecofamily.repositories.EnterpriseRepository;
 import com.innovedcol.ecofamily.services.backend.EnterpriseService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -41,6 +43,10 @@ public class EmpFEService {
 
     public Optional<Employee> searchEmployeeEmail(String email){
         return employeeRepository.findByEmail(email);
+    }
+
+    public Optional<Employee> searchRoleEmail(EnumRoleEmployee role){
+        return employeeRepository.findByRole(role);
     }
 
     // Método que retorna un objeto de tipo Transaction que hacen parte de una empresa:
@@ -103,6 +109,44 @@ public class EmpFEService {
             return "--> Empleado eliminado con éxito!";
         }else{
             return "--> El empleado indicado no existe!";
+        }
+    }
+
+    public Employee createOrValidateUser(Map<String,Object> dataUser){
+        Optional<Employee> usuario = searchEmployeeEmail((String) dataUser.get("email"));
+        if (usuario.isEmpty()){
+            String name = (String) dataUser.get("name");
+            String email = (String) dataUser.get("email");
+            String phone = (String) dataUser.get("phone");
+            String image = (String) dataUser.get("picture");
+            if (image.equals("null") || image==null){
+                image = "https://i.ibb.co/4jrvy5h/ecofamily.png";
+            }
+            LocalDateTime fechaCreacion = LocalDateTime.now();
+            LocalDateTime fechaActualizacion = LocalDateTime.now();
+            EnumRoleEmployee rol;
+            if (searchRoleEmail(EnumRoleEmployee.valueOf("Admin")).isPresent()){
+                rol = EnumRoleEmployee.valueOf("Operario");
+            }else{
+                rol = EnumRoleEmployee.valueOf("Admin");
+            }
+
+            Enterprise enterprise = extractEnterpriseInfo();
+
+            Employee employee = new Employee(0L, name, email, phone, rol, image, enterprise,null,fechaCreacion,fechaActualizacion);
+            employeeRepository.save(employee);
+            return employee;
+        }else{
+            return usuario.get();
+        }
+    }
+
+    public Enterprise extractEnterpriseInfo(){
+        List<Enterprise> list = enterpriseRepository.findAll();
+        if (list.size() > 0){
+            return list.get(0);
+        }else{
+            return null;
         }
     }
 }

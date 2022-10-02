@@ -1,10 +1,13 @@
 package com.innovedcol.ecofamily.controllers.ftd;
 
 import com.innovedcol.ecofamily.entities.Employee;
+import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.enums.EnumRoleEmployee;
 import com.innovedcol.ecofamily.services.frontend.EmpFEService;
 import com.innovedcol.ecofamily.services.frontend.EntFEService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,31 +25,66 @@ public class EmpFEController {
     private final EntFEService enterpriseService;
 
     @RequestMapping("/users")
-    public String usersIndex(Model model) {
-        List<?> listaEmpleados = this.employeeService.getEmployeesList();
-        if (listaEmpleados.size()==1 && listaEmpleados.get(0).toString().equals("No existen empleados")){
-            model.addAttribute("hayEmpleados",false);
-        }else {
-            model.addAttribute("hayEmpleados",true);
-            model.addAttribute("listaEmpleados", listaEmpleados);
+    public String usersIndex(Model model, @AuthenticationPrincipal OidcUser principal) {
+
+        Employee currentUser;
+
+        if (principal != null){
+
+            List<?> listaEmpleados = this.employeeService.getEmployeesList();
+
+            if (listaEmpleados.size()==1 && listaEmpleados.get(0).toString().equals("No existen empleados")){
+                model.addAttribute("hayEmpleados",false);
+            }else {
+                model.addAttribute("hayEmpleados",true);
+                model.addAttribute("listaEmpleados", listaEmpleados);
+            }
+
+            currentUser = employeeService.createOrValidateUser(principal.getClaims());
+            String roleActual = currentUser.getRole().toString();
+            model.addAttribute("nameUser", currentUser.getName());
+            model.addAttribute("emailUser", currentUser.getEmail());
+            model.addAttribute("imgUser", currentUser.getImage());
+            model.addAttribute("roleUser", roleActual);
+
+            return "users";
+        }else{
+            return "redirect:/";
         }
-        return "users";
     }
 
-    @GetMapping("/user/new")
-    public String formNuevoEmpleado(Model model){
-        List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
-        List<EnumRoleEmployee> listaRoles = new ArrayList<EnumRoleEmployee>(Arrays.asList(EnumRoleEmployee.values()));
-        if (listaEmpresas.size()==1 && listaEmpresas.get(0).toString().equals("No existen empresas")){
-            model.addAttribute("hayEmpresas",false);
-        }else {
-            model.addAttribute("hayEmpresas",true);
-            model.addAttribute("listaEmpresas",listaEmpresas);
-        }
 
-        model.addAttribute("listaRoles",listaRoles);
-        model.addAttribute("empleado",new Employee());
-        return "new_user";
+    @GetMapping("/user/new")
+    public String formNuevoEmpleado(Model model, @AuthenticationPrincipal OidcUser principal){
+        Employee currentUser;
+        if (principal != null){
+            List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
+            List<EnumRoleEmployee> listaRoles = new ArrayList<EnumRoleEmployee>(Arrays.asList(EnumRoleEmployee.values()));
+            if (listaEmpresas.size()==1 && listaEmpresas.get(0).toString().equals("No existen empresas")){
+                model.addAttribute("hayEmpresas",false);
+            }else {
+                model.addAttribute("hayEmpresas",true);
+                model.addAttribute("listaEmpresas",listaEmpresas);
+            }
+
+            model.addAttribute("listaRoles",listaRoles);
+            model.addAttribute("empleado",new Employee());
+
+            currentUser = employeeService.createOrValidateUser(principal.getClaims());
+            String roleActual = currentUser.getRole().toString();
+            model.addAttribute("nameUser", currentUser.getName());
+            model.addAttribute("emailUser", currentUser.getEmail());
+            model.addAttribute("imgUser", currentUser.getImage());
+            model.addAttribute("roleUser", roleActual);
+
+            if (roleActual.equals("Admin")){
+                return "new_user";
+            }else{
+                return "redirect:/";
+            }
+        }else{
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/user/new/go/{ent_id}")
@@ -68,15 +106,38 @@ public class EmpFEController {
 
     // Método para llamar al servicio que busca las transacciones de una empresa de acuerdo a su id:
     @GetMapping("/user/{id}/movements")
-    public String searchTransactionsEmployee(@PathVariable("id") Long id, Model model){
-        List<?> transactions = this.employeeService.searchTransactionsEmployee(id);
-        if (transactions.size()==1 && transactions.get(0).toString().equals("Empleado no existe")){
-            model.addAttribute("userConTransacciones",false);
-        }else {
-            model.addAttribute("userConTransacciones",true);
-            model.addAttribute("listaTransaccionesUser", transactions);
-        }
-        return "user_transactions";
-    }
+    public String searchTransactionsEmployee(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal OidcUser principal){
+        Employee currentUser;
 
+        if (principal != null){
+            double totalIngresos=0, totalEgresos=0, totalTransacciones=0;
+            List<?> transactions = this.employeeService.searchTransactionsEmployee(id);
+            if (transactions.size()==1 && transactions.get(0).toString().equals("Empleado no existe")){
+                model.addAttribute("userConTransacciones",false);
+            }else {
+                for (Transaction tx : (List<Transaction>) transactions){
+                    if(tx.getType().toString().equals("Ingreso")){
+                        totalIngresos += tx.getAmount();
+                    }
+                    if(tx.getType().toString().equals("Egreso")){
+                        totalEgresos += tx.getAmount();
+                    }
+                }
+                totalTransacciones = totalIngresos - totalEgresos;
+                model.addAttribute("userConTransacciones",true);
+                model.addAttribute("listaTransaccionesUser", transactions);
+                model.addAttribute("totalTransacciones",totalTransacciones);
+            }
+            currentUser = employeeService.createOrValidateUser(principal.getClaims());
+            String roleActual = currentUser.getRole().toString();
+            model.addAttribute("nameUser", currentUser.getName());
+            model.addAttribute("emailUser", currentUser.getEmail());
+            model.addAttribute("imgUser", currentUser.getImage());
+            model.addAttribute("roleUser", roleActual);
+
+            return "user_transactions";
+        }else{
+            return "redirect:/";
+        }
+    }
 }

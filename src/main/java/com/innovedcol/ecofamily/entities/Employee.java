@@ -28,13 +28,13 @@ public class Employee {
     @Column(unique = true)
     private Long id;
 
-    @Column (nullable = false, length = 50)
+    @Column (nullable = false)
     private String name;
 
-    @Column (nullable = false, length = 50, unique = true)
+    @Column (nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String phone;
 
     @Enumerated(EnumType.STRING)
