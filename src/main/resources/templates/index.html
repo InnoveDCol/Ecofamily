@@ -20,16 +20,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" sec:authorize="isAuthenticated()">
-                    <img th:src="${imgUser}" src="" alt="Ecofamily" width="30" height="24" class="d-inline-block align-text-top mt-2">
+                    <img th:src="${imgUser}" src="" alt="Ecofamily" width="30" height="24" class="d-inline-block align-text-top mt-2" />
                     <li class="nav-item dropdown">
-                        <!--a th:if="${roleUser=='Admin'}" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${nameUser}+' ('+${emailUser}+')'">
-                            Nombre de usuario (Correo)
-                        </a>
-                        <a th:if="${roleUser=='Operario'}" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${nameUser}+' ('+${roleUser}+')'">
-                            Nombre de usuario (Correo)
-                        </a-->
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${nameUser}+' ('+${roleUser}+')'">
-                            Nombre de usuario (Correo)
+                            Nombre de usuario (Rol)
                         </a>
                         <ul class="dropdown-menu">
                             <li>

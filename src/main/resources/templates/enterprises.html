@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title> Empresas </title>
     <link rel="shortcut icon" type="image/png" th:href="@{/images/general/favicon.png}"/>
-    <link rel="stylesheet" href="../static/css/styles.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </head>
@@ -20,10 +19,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" sec:authorize="isAuthenticated()">
-                    <img th:src="${imgUser}" src="" alt="Ecofamily" width="30" height="24" class="d-inline-block align-text-top mt-2">
+                    <img th:src="${imgUser}" src="" alt="Ecofamily" width="30" height="24" class="d-inline-block align-text-top mt-2" />
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${nameUser}+' ('+${roleUser}+')'">
-                            Nombre de usuario (Correo)
+                            Nombre de usuario (Rol)
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -61,8 +60,6 @@
                         <th scope="col">Documento</th>
                         <th scope="col">Telefono</th>
                         <th scope="col">Direccion</th>
-                        <!--th scope="col">Usuarios</th>
-                        <th scope="col">Transacciones</th-->
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -74,8 +71,6 @@
                             <td th:text="${empresa.document}"></td>
                             <td th:text="${empresa.phone}"></td>
                             <td th:text="${empresa.address}"></td>
-                            <!--td><a role="button" th:href="@{/users}">[Ver listado]</a></td>
-                            <td><a role="button" th:href="@{/transactions}">[Ver listado]</a></td-->
                             <td><a role="button" th:href="@{/enterprises/update/{id}(id=${empresa.id})}" th:title="'Modificar '+${empresa.name}">✏</a></td>  <!-- TODO: Falta implementar-->
                             <td><a role="button" th:title="'Eliminar '+${empresa.name}" data-bs-toggle="modal" th:attr="data-bs-target=${'#staticBackdrop'+empresa.id}" data-row="${empresa}">❌</a></td>
                         </tr>

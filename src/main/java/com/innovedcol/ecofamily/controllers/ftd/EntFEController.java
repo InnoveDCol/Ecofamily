@@ -50,30 +50,10 @@ private final EmpFEService employeeService;
         }else{
             return "redirect:/";
         }
-
-
     }
 
     @GetMapping("/enterprise/new")
     public String formNuevaEmpresa(Model model, @AuthenticationPrincipal OidcUser principal){
-        /*if (principal != null){
-            List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
-            if (listaEmpresas.size()>0 && !listaEmpresas.get(0).toString().equals("No existen empresas")){
-                model.addAttribute("hayEmpresas",true);
-            }else {
-                model.addAttribute("hayEmpresas",false);
-                model.addAttribute("empresa",new Enterprise());
-            }
-
-            model.addAttribute("nameUser", principal.getFullName());
-            model.addAttribute("emailUser", principal.getEmail());
-            model.addAttribute("phoneUser", principal.getPhoneNumber());
-            model.addAttribute("imgUser", principal.getPicture());
-
-            return "new_enterprise";
-        }else{
-            return "redirect:/";
-        }*/
         Employee currentUser;
         if (principal != null){
             List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
@@ -103,7 +83,7 @@ private final EmpFEService employeeService;
     }
 
     @PostMapping("/enterprise/new/go")
-    public String createEnterprise(@ModelAttribute("empresa") Enterprise e, Model model, RedirectAttributes attributes, @AuthenticationPrincipal OidcUser principal){
+    public String createEnterprise(@ModelAttribute("empresa") Enterprise e, RedirectAttributes attributes, @AuthenticationPrincipal OidcUser principal){
         if (principal != null){
             String result = this.enterpriseService.createEnterprise(e);
             if(result.equals("--> Empresa creada con éxito!")) {

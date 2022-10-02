@@ -1,7 +1,6 @@
 package com.innovedcol.ecofamily.controllers.ftd;
 
 import com.innovedcol.ecofamily.entities.Employee;
-import com.innovedcol.ecofamily.entities.Enterprise;
 import com.innovedcol.ecofamily.entities.Transaction;
 import com.innovedcol.ecofamily.enums.EnumTypeTransaction;
 import com.innovedcol.ecofamily.services.frontend.EmpFEService;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @AllArgsConstructor
@@ -28,15 +26,13 @@ public class TranFEController {
     private final EntFEService enterpriseService;
     private final EmpFEService employeeService;
 
-
-
     @RequestMapping("/transactions")
-    public String transactionsIndex(Model model, Locale locale, @AuthenticationPrincipal OidcUser principal) {
+    public String transactionsIndex(Model model, @AuthenticationPrincipal OidcUser principal) {
         Employee currentUser;
         if (principal != null){
             List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
             List<?> listaUsuarios = this.employeeService.getEmployeesList();
-            boolean hayEmpresas = false, hayUsuarios = false;
+            boolean hayEmpresas, hayUsuarios = false;
             if (listaEmpresas.size()>0 && !listaEmpresas.get(0).toString().equals("No existen empresas")){
                 hayEmpresas = true;
                 if (listaUsuarios.size()==1 && listaUsuarios.get(0).toString().equals("No existen empleados")){
@@ -48,7 +44,7 @@ public class TranFEController {
                 hayEmpresas = false;
             }
 
-            double totalIngresos=0, totalEgresos=0, totalTransacciones=0;
+            double totalIngresos=0, totalEgresos=0, totalTransacciones;
             List<?> listaTransacciones = this.transactionService.getTransactionsList();
             if (listaTransacciones.size()==1 && listaTransacciones.get(0).toString().equals("No existen transacciones")){
                 model.addAttribute("hayTransacciones",false);
@@ -90,28 +86,24 @@ public class TranFEController {
         if (principal != null){
             List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
             List<?> listaUsuarios = this.employeeService.getEmployeesList();
-            List<EnumTypeTransaction> listaTipoTransacciones = new ArrayList<EnumTypeTransaction>(Arrays.asList(EnumTypeTransaction.values()));
+            List<EnumTypeTransaction> listaTipoTransacciones = new ArrayList<>(Arrays.asList(EnumTypeTransaction.values()));
 
-            boolean hayEmpresas = false, hayUsuarios = false;
+            boolean hayEmpresas, hayUsuarios = false;
 
 
             if (listaEmpresas.size()>0 && !listaEmpresas.get(0).toString().equals("No existen empresas")){
                 if (listaUsuarios.size()==1 && listaUsuarios.get(0).toString().equals("No existen empleados")){
-                    //model.addAttribute("hayUsuarios",false);
                     hayUsuarios = false;
                 }else {
                     hayUsuarios = true;
-                    //model.addAttribute("hayUsuarios",true);
                     model.addAttribute("listaEmpresas",listaEmpresas);
                     model.addAttribute("listaUsuarios",listaUsuarios);
                 }
                 hayEmpresas = true;
-                //model.addAttribute("hayEmpresas",true);
                 model.addAttribute("listaTipoTransacciones",listaTipoTransacciones);
                 model.addAttribute("transaccion",new Transaction());
             }else {
                 hayEmpresas = false;
-                //model.addAttribute("hayEmpresas",false);
             }
 
             model.addAttribute("hayUsuarios",hayUsuarios);
@@ -133,10 +125,7 @@ public class TranFEController {
     }
 
     @PostMapping("/transaction/new/go/{usr_id}/{ent_id}")
-    public String createTransaction(@PathVariable("usr_id") Long usr_id, @PathVariable("ent_id") Long ent_id, @ModelAttribute("transaccion") Transaction t, Model model, RedirectAttributes attributes){
-    //public String createTransaction(@ModelAttribute("transaccion") Transaction t, Model model, RedirectAttributes attributes){
-        //Long usr_id = t.getEmployee().getId();
-        //Long ent_id = t.getEnterprise().getId();
+    public String createTransaction(@PathVariable("usr_id") Long usr_id, @PathVariable("ent_id") Long ent_id, @ModelAttribute("transaccion") Transaction t, RedirectAttributes attributes){
         String result = this.transactionService.createTransaction(usr_id,ent_id,t);
         if(result.equals("--> Transacción creada con éxito!")) {
             attributes.addFlashAttribute("mensajeOk",result);

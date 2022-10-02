@@ -9,6 +9,5 @@ import java.util.Optional;
 @Repository
 public interface EnterpriseRepository extends JpaRepository<Enterprise, Long> {
     Optional<Enterprise> findByName(String name);
-
     Optional<Enterprise> findByDocument(String document);
 }
