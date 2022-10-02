@@ -114,6 +114,58 @@ public class EmpFEController {
         return "redirect:/users";
     }
 
+    @GetMapping("/user/update/{id}")
+    public String formActualizarEmpleado(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal OidcUser principal){
+        Employee currentUser;
+        if (principal != null){
+            List<?> listaEmpresas = this.enterpriseService.getEnterprisesList();
+            List<EnumRoleEmployee> listaRoles = new ArrayList<>(Arrays.asList(EnumRoleEmployee.values()));
+            if (listaEmpresas.size()==1 && listaEmpresas.get(0).toString().equals("No existen empresas")){
+                model.addAttribute("hayEmpresas",false);
+            }else {
+                model.addAttribute("hayEmpresas",true);
+                model.addAttribute("listaEmpresas",listaEmpresas);
+            }
+
+            model.addAttribute("listaRoles",listaRoles);
+            model.addAttribute("empleado",new Employee());
+
+            currentUser = employeeService.createOrValidateUser(principal.getClaims());
+            String roleActual = currentUser.getRole().toString();
+            model.addAttribute("nameUser", currentUser.getName());
+            model.addAttribute("emailUser", currentUser.getEmail());
+            model.addAttribute("imgUser", currentUser.getImage());
+            model.addAttribute("roleUser", roleActual);
+            model.addAttribute("phoneUser", currentUser.getPhone());
+            if (currentUser.getEnterprise()!=null){
+                model.addAttribute("idEntUser", currentUser.getEnterprise().getId());
+            }else{
+                model.addAttribute("idEntUser", null);
+            }
+            model.addAttribute("enterpriseUser", currentUser.getEnterprise());
+
+            if (roleActual.equals("Admin")){
+                model.addAttribute("empleado",employeeService.searchEmployee(id).get());
+                return "update_user";
+            }else{
+                return "redirect:/";
+            }
+        }else{
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/user/update/go/{id}")
+    public String updateEmployee(@PathVariable("id") Long id, @ModelAttribute("empleado") Employee e, Model model, RedirectAttributes attributes){
+        String result = this.employeeService.updateEmployee(id, e);
+        if(result.equals("--> Empleado actualizado con éxito!")) {
+            attributes.addFlashAttribute("mensajeOk",result);
+        }else{
+            attributes.addFlashAttribute("error",result);
+        }
+        return "redirect:/users";
+    }
+
     @GetMapping("/user/delete/{id}")
     public String deleteEmployee(@PathVariable("id") Long id) {
         this.employeeService.deleteEmployee(id);

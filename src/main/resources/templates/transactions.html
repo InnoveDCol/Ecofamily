@@ -82,7 +82,7 @@
                             <td th:text="${transaccion.employee.name}"></td>
                             <td th:if="${roleUser=='Admin'}" th:text="${transaccion.createdAt}"></td>
                             <td th:if="${roleUser=='Admin'}" th:text="${transaccion.updatedAt}"></td>
-                            <td><a role="button" th:if="${transaccion.employee.email==emailUser || roleUser=='Admin'}" th:href="@{/transactions/update/{id}(id=${transaccion.id})}" th:title="'Modificar transaccion '+${transaccion.id}">✏</a></td>  <!-- TODO: Falta implementar-->
+                            <td><a role="button" th:if="${transaccion.employee.email==emailUser || roleUser=='Admin'}" th:href="@{/transaction/update/{id}(id=${transaccion.id})}" th:title="'Modificar transaccion '+${transaccion.id}">✏</a></td>  <!-- TODO: Falta implementar-->
                             <td th:if="${roleUser=='Admin'}" ><a role="button" th:title="'Eliminar transaccion '+${transaccion.id}" data-bs-toggle="modal" th:attr="data-bs-target=${'#staticBackdrop'+transaccion.id}" data-row="${transaccion}">❌</a></td>
                         </tr>
                     </tbody>

@@ -87,11 +87,18 @@ public class EmpFEService {
         Enterprise empresaActual;
         LocalDateTime fechaCreacionActual;
         List<Transaction> transaccionesActuales;
+        String emailActual="";
+        //String emailModificado="";
 
         if(searchEmployee(id).isPresent()){
+            emailActual = searchEmployee(id).get().getEmail();
             empresaActual = searchEmployee(id).get().getEnterprise();
             fechaCreacionActual = searchEmployee(id).get().getCreatedAt();
             transaccionesActuales = searchEmployee(id).get().getTransactions();
+
+            //employeeRepository.deleteByEmail(emailActual);
+
+            emp.setEmail(emailActual);
             emp.setEnterprise(empresaActual);
             emp.setCreatedAt(fechaCreacionActual);
             emp.setTransactions(transaccionesActuales);

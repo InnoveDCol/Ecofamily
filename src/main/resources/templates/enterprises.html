@@ -74,7 +74,7 @@
                             <td th:text="${empresa.document}"></td>
                             <td th:text="${empresa.phone}"></td>
                             <td th:text="${empresa.address}"></td>
-                            <td><a role="button" th:href="@{/enterprises/update/{id}(id=${empresa.id})}" th:title="'Modificar '+${empresa.name}">✏</a></td>  <!-- TODO: Falta implementar-->
+                            <td><a role="button" th:href="@{/enterprise/update/{id}(id=${empresa.id})}" th:title="'Modificar '+${empresa.name}">✏</a></td>
                             <td><a role="button" th:title="'Eliminar '+${empresa.name}" data-bs-toggle="modal" th:attr="data-bs-target=${'#staticBackdrop'+empresa.id}" data-row="${empresa}">❌</a></td>
                         </tr>
                     </tbody>
