@@ -132,6 +132,7 @@ public class EmpFEController {
 
             currentUser = employeeService.createOrValidateUser(principal.getClaims());
             String roleActual = currentUser.getRole().toString();
+            String emailActual = currentUser.getEmail();
             model.addAttribute("nameUser", currentUser.getName());
             model.addAttribute("emailUser", currentUser.getEmail());
             model.addAttribute("imgUser", currentUser.getImage());
@@ -144,8 +145,11 @@ public class EmpFEController {
             }
             model.addAttribute("enterpriseUser", currentUser.getEnterprise());
 
-            if (roleActual.equals("Admin")){
-                model.addAttribute("empleado",employeeService.searchEmployee(id).get());
+            Employee empleadoPorActualizar = employeeService.searchEmployee(id).get();
+
+            if (emailActual.equals(empleadoPorActualizar.getEmail()) || roleActual.equals("Admin")){
+                //model.addAttribute("empleado",employeeService.searchEmployee(id).get());
+                model.addAttribute("empleado",empleadoPorActualizar);
                 return "update_user";
             }else{
                 return "redirect:/";

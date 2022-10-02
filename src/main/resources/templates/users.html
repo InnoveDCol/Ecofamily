@@ -56,7 +56,9 @@
                     <a th:href="@{/transactions}" class="btn btn-primary mb-3 my-2 btn-lg" role="button">Transacciones</a>
                 </div>
             </div>
-            <!-- Si es un usuario Admin -->
+
+            <!-- ******************************* Si es un usuario Admin *******************************  -->
+
             <div th:if="${roleUser=='Admin'}" class="row container-fluid col-md-9 mx-auto my-auto justify-content-center border border-success border-2">
                 <table class="table table-hover border border-dark border-1 my-auto mt-2 mb-2" th:if="${hayEmpleados==true}">
                     <thead class="table-dark">
@@ -83,7 +85,7 @@
                             <td><a role="button" th:href="@{/user/{id}/movements (id=${empleado.id})}">[Ver listado]</a></td>
                             <td th:text="${empleado.createdAt}" th:if="${roleUser=='Admin'}"></td>
                             <td th:text="${empleado.updatedAt}" th:if="${roleUser=='Admin'}"></td>
-                            <td th:if="${roleUser=='Admin' && hayEmpresas==true}"><a role="button" th:href="@{/user/update/{id}(id=${empleado.id})}" th:title="'Modificar '+${empleado.name}">✏</a></td> <!-- TODO: Falta implementar-->
+                            <td th:if="${roleUser=='Admin' && hayEmpresas==true}"><a role="button" th:href="@{/user/update/{id}(id=${empleado.id})}" th:title="'Modificar '+${empleado.name}">✏</a></td>
                             <td th:if="${roleUser=='Admin'}" ><a role="button" th:title="'Eliminar '+${empleado.name}" data-bs-toggle="modal" th:attr="data-bs-target=${'#staticBackdrop'+empleado.id}" data-row="${empleado}">❌</a></td>
                         </tr>
                     </tbody>
@@ -98,7 +100,8 @@
                 <!--a th:if="${roleUser=='Admin'}" th:href="@{/user/new}" role="button" class="my-2 w-auto py-5 btn btn-outline-success">Nuevo usuario</a-->
             </div>
 
-            <!-- Si no es un usuario Admin -->
+            <!-- ******************************* Si no es un usuario Admin *******************************  -->
+
             <div th:if="${roleUser!='Admin'}" class="row container-fluid col-md-9 mx-auto my-auto justify-content-center border border-success border-2">
 
                 <div class="card text-center my-3" style="width: 18rem;" th:each="empleado:${listaEmpleados}" th:if="${empleado.email==emailUser}">
@@ -113,7 +116,7 @@
                         <li class="list-group-item" th:text="'Rol: '+${empleado.role}"></li>
                     </ul>
                     <div class="card-body">
-                        <p><a href="#" class="card-link" th:href="@{/user/{id}/movements (id=${empleado.id})}">[Ver listado]</a></p>
+                        <p><a href="#" class="card-link" th:href="@{/user/{id}/movements (id=${empleado.id})}">[Ver mis transacciones]</a></p>
                         <p><a href="#" class="card-link" th:href="@{/user/update/{id}(id=${empleado.id})}" th:title="'Modificar '+${empleado.name}">✏</a></p>
                     </div>
                 </div>

@@ -63,15 +63,19 @@
                 </div>
                 <div class="mt-3 mb-3">
                     <label for="employee" class="form-label">Usuario</label>
-                    <select class="form-select" id="employee" th:field="*{employee}" aria-label="User select" disabled>
+                    <select class="form-select" id="employee" th:field="*{employee}" aria-label="User select" disabled readonly>
                         <option th:each="usuario:${listaUsuarios}" th:if="${usuario.email == emailUser}" th:value="${usuario.id}" th:text="${usuario.name}" class="text-center"></option>
                     </select>
                 </div>
-                <div class="mt-3 mb-3">
+                <div class="mt-3 mb-3" th:if="${roleUser == 'Admin'}">
                     <label for="enterprise" class="form-label">Empresa</label>
                     <select class="form-select" id="enterprise" th:field="*{enterprise}" aria-label="Enterprise select" disabled>
                         <option th:each="empresa:${listaEmpresas}" th:value="${empresa.id}" th:text="${empresa.name}" class="text-center"></option>
                     </select>
+                </div>
+                <div class="mt-3 mb-3" th:if="${roleUser != 'Admin'}">
+                    <label for="enterprise" class="form-label">Empresa</label>
+                    <input type="text" class="form-control text-center" th:id="enterprise" th:field="${enterpriseUser.name}" disabled readonly required>
                 </div>
                 <div class="mb-3">
                     <label for="type" class="form-label">Tipo</label>

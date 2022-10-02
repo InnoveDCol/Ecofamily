@@ -88,6 +88,7 @@ public class EmpFEService {
         LocalDateTime fechaCreacionActual;
         List<Transaction> transaccionesActuales;
         String emailActual="";
+        EnumRoleEmployee rolActual;
         //String emailModificado="";
 
         if(searchEmployee(id).isPresent()){
@@ -95,9 +96,12 @@ public class EmpFEService {
             empresaActual = searchEmployee(id).get().getEnterprise();
             fechaCreacionActual = searchEmployee(id).get().getCreatedAt();
             transaccionesActuales = searchEmployee(id).get().getTransactions();
+            rolActual = searchEmployee(id).get().getRole();
 
             //employeeRepository.deleteByEmail(emailActual);
-
+            if (emp.getRole()==null){
+                emp.setRole(rolActual);
+            }
             emp.setEmail(emailActual);
             emp.setEnterprise(empresaActual);
             emp.setCreatedAt(fechaCreacionActual);
